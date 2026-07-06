@@ -1,0 +1,64 @@
+@font-face {
+  font-family: "Inter";
+  src: url(../src/assets/Fonts/Inter-Regular.woff2) format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Archivo";
+  src: url(../src/assets/Fonts/ArchivoBlack-Regular.woff2) format("woff2");
+  font-display: swap;
+}
+@font-face {
+  font-family: "SpaceGrotesk";
+  src: url(../src/assets/Fonts/SpaceGrotesk-Bold.woff2) format("woff2");
+  font-display: swap;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Inter";
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #020611;
+  overflow-x: hidden;
+}
+
+/* 🎯 کانتینر اصلی */
+.app {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  animation: fadeIn 1s ease;
+}
+
+/* 🎯 همه سکشن‌ها روی هم */
+.app > * {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+/* هر دو سکشن روی هم */
+.app > section {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+/* این رو به Styles.css یا هر فایل global CSS اضافه کن */
+
+/* وقتی صفحه نه active هست نه در حال exit — کاملاً پنهان و غیرقابل کلیک */
+.hero-section.hidden,
+.projects-section.hidden,
+.about-section.hidden,
+.contact-section.hidden {
+  visibility: hidden;
+  pointer-events: none;
+  /* opacity رو صفر نمیکنیم چون انیمیشن exit به opacity نیاز داره */
+}

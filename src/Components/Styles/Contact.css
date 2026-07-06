@@ -1,0 +1,1516 @@
+.contact-section {
+  width: 100%;
+  height: 100vh;
+  padding: 35px 100px;
+  padding-bottom: 0;
+  box-sizing: border-box;
+
+  position: absolute;
+  inset: 0;
+
+  background-image: url("../../assets/Images/ContactBG.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  opacity: 0;
+  pointer-events: none;
+
+  transition: opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+
+  transition-delay: 0.45s;
+  z-index: 999;
+  overflow: hidden;
+}
+
+.contact-section.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.contact-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.12);
+}
+.contact-section:not(.show) {
+  transition-delay: 0s;
+}
+
+/* ─── Box: فقط transform — بدون opacity ─── */
+.contact-section > .box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 97%;
+
+  border-radius: 30px;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+
+  background: linear-gradient(
+    180deg,
+    rgba(20, 35, 70, 0.377),
+    rgba(10, 18, 40, 0.404)
+  );
+  border: 1.5px solid rgba(146, 212, 250, 0.22);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 18px 45px rgba(0, 0, 0, 0.25),
+    0 0 18px rgba(58, 127, 231, 0.06);
+  backdrop-filter: blur(0.5px) saturate(120%);
+
+  transform: translateY(30px) scale(0.98);
+  transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: 0.35s;
+}
+
+.contact-section.show > .box {
+  transform: translateY(0) scale(1);
+}
+
+/* ─── Container: فقط transform ─── */
+.contact-section > .box > .container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 10px 5px;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  box-sizing: border-box;
+
+  transform: translateY(22px);
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: 0.18s;
+}
+
+.contact-section.show > .box > .container {
+  transform: translateY(0);
+}
+
+/* ─── Social / Text: فقط transform ─── */
+.contact-section .social,
+.contact-section .text {
+  transform: translateY(35px) scale(0.98);
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.contact-section.loaded .social {
+  transform: translateY(0) scale(1);
+  transition-delay: 0.22s;
+}
+
+.contact-section.loaded .text {
+  transform: translateY(0) scale(1);
+  transition-delay: 0.38s;
+}
+
+/* ─── فرزندان: opacity فقط روی leaf node‌ها ─── */
+.contact-section .social > *,
+.contact-section .text > *,
+.contact-section .form > .title {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease;
+}
+
+.contact-section.loaded .social > *,
+.contact-section.loaded .text > *,
+.contact-section.loaded .form > .title {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.contact-section .social-top {
+  transition-delay: 0.28s;
+}
+.contact-section .social .platform:nth-child(2) {
+  transition-delay: 0.34s;
+}
+.contact-section .social .platform:nth-child(3) {
+  transition-delay: 0.4s;
+}
+.contact-section .social .platform:nth-child(4) {
+  transition-delay: 0.46s;
+}
+.contact-section .social .platform:nth-child(5) {
+  transition-delay: 0.52s;
+}
+.contact-section .form .title {
+  transition-delay: 0.36s;
+}
+
+.contact-section > .box > .container > .text > h1 {
+  transition-delay: 0.42s;
+}
+.contact-section > .box > .container > .text h2:nth-of-type(1) {
+  transition-delay: 0.48s;
+}
+.contact-section > .box > .container > .text h2:nth-of-type(2) {
+  transition-delay: 0.54s;
+}
+.contact-section > .box > .container > .text p {
+  transition-delay: 0.6s;
+}
+.contact-section .text .line {
+  transition-delay: 0.66s;
+}
+.contact-section .text .item-container {
+  transition-delay: 0.72s;
+}
+
+.contact-section > .box > .container > div {
+  width: 32%;
+  height: 90%;
+  background-color: transparent;
+  color: #fff;
+}
+
+/* ─── Social Part ─── */
+
+.contact-section > .box > .container > .social {
+  display: flex;
+  width: 30%;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.contact-section .social-top {
+  width: 100%;
+}
+
+.contact-section .social-top .status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(72, 180, 255, 0.07);
+  border: 1px solid rgba(120, 190, 255, 0.18);
+  backdrop-filter: blur(18px);
+  font-size: 12px;
+  color: #9ee5ff;
+}
+
+.contact-section .social-top .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #53ff93;
+  box-shadow:
+    0 0 8px #53ff93,
+    0 0 18px rgba(83, 255, 147, 0.4);
+}
+
+.contact-section .social-top h3 {
+  margin-top: 8px;
+  margin-bottom: 13px;
+  font-size: 28px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.contact-section > .box > .container > .social > .platform {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 145px;
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+  background: linear-gradient(
+    180deg,
+    rgba(25, 45, 90, 0.42),
+    rgba(8, 18, 45, 0.55)
+  );
+  border: 1px solid rgba(130, 190, 255, 0.18);
+  backdrop-filter: blur(12px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.03),
+    0 15px 40px rgba(0, 0, 0, 0.25),
+    0 0 30px rgba(80, 140, 255, 0.04);
+  transition: all 0.35s ease;
+  gap: 10px;
+}
+
+.contact-section > .box > .container > .social > .platform::before {
+  content: "";
+  position: absolute;
+  left: -120%;
+  top: 0;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.12),
+    transparent
+  );
+  transform: skewX(-25deg);
+  transition: 0.8s;
+}
+
+.contact-section > .box > .container > .social > .platform:hover::before {
+  left: 160%;
+}
+
+.contact-section > .box > .container > .social > .platform::after {
+  content: "";
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  left: -120px;
+  bottom: -120px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(90, 180, 255, 0.18),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.contact-section > .box > .container > .social > .platform:hover {
+  transform: translateY(-3px);
+  border-color: rgba(120, 200, 255, 0.25);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    0 0 30px rgba(80, 150, 255, 0.12);
+}
+
+.contact-section
+  > .box
+  > .container
+  > .social
+  > .platform:hover
+  > .title
+  > .circle {
+  border-color: rgba(120, 200, 255, 0.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 25px rgba(100, 170, 255, 0.18);
+}
+
+.contact-section > .box > .container > .social > .platform > .title {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  width: 100%;
+}
+
+.contact-section > .box > .container > .social > .platform > .title > .circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(55, 100, 255, 0.22),
+    rgba(25, 45, 100, 0.12)
+  );
+  border: 1px solid rgba(130, 190, 255, 0.15);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 30px rgba(90, 140, 255, 0.12);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.35s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-section .platform .circle::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.08),
+    transparent 45%
+  );
+}
+
+.contact-section
+  > .box
+  > .container
+  > .social
+  > .platform
+  > .title
+  > .circle
+  > img {
+  width: 30px;
+  filter: brightness(0) saturate(100%) invert(99%) sepia(11%) saturate(362%)
+    hue-rotate(254deg) brightness(118%) contrast(100%);
+}
+
+.contact-section > .box > .container > .social > .platform > .title > .desc {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contact-section
+  > .box
+  > .container
+  > .social
+  > .platform
+  > .title
+  > .desc
+  > p {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.contact-section
+  > .box
+  > .container
+  > .social
+  > .platform
+  > .title
+  > .desc
+  > span {
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.contact-section > .box > .container > .social > .platform > a {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin-left: 90px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #9ad8ff;
+  transition: 0.3s;
+}
+
+.contact-section > .box > .container > .social > .platform:hover > a {
+  color: #d6f4ff;
+  text-shadow: 0 0 12px rgba(110, 190, 255, 0.35);
+}
+
+.contact-section > .box > .container > .social > .platform > button {
+  position: absolute;
+  right: 18px;
+  bottom: 12px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(140, 190, 255, 0.15);
+  background: rgba(255, 255, 255, 0.03);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.contact-section > .box > .container > .social > .platform:hover > button {
+  transform: translateX(4px);
+  background: rgba(60, 120, 255, 0.15);
+  border-color: rgba(140, 190, 255, 0.35);
+}
+
+/* ─── Form Part ─── */
+
+.contact-section > .box > .container > .form {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background: linear-gradient(
+    180deg,
+    rgba(25, 45, 90, 0.42),
+    rgba(8, 18, 45, 0.55)
+  );
+  border: 1px solid rgba(130, 190, 255, 0.18);
+  backdrop-filter: blur(12px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.03),
+    0 15px 40px rgba(0, 0, 0, 0.25),
+    0 0 30px rgba(80, 140, 255, 0.04);
+  border-radius: 28px;
+  height: 740px;
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-section > .box > .container > .form::before {
+  content: "";
+  position: absolute;
+  left: -20%;
+  top: 0;
+  width: 140%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.55),
+    transparent
+  );
+  opacity: 0.6;
+}
+
+.contact-section > .box > .container > .form::after {
+  content: "";
+  position: absolute;
+  right: -120px;
+  top: -120px;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(70, 170, 255, 0.1), transparent 72%);
+  pointer-events: none;
+}
+
+.contact-section > .box > .container > .form > .title {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 15px;
+}
+
+.contact-section > .box > .container > .form > .title > .left {
+  display: flex;
+}
+
+.contact-section > .box > .container > .form > .title > .left > .circle {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(55, 100, 255, 0.22),
+    rgba(25, 45, 100, 0.12)
+  );
+  border: 1px solid rgba(130, 190, 255, 0.15);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 30px rgba(90, 140, 255, 0.12);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.35s ease;
+}
+
+.contact-section > .box > .container > .form > .title > .right {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.contact-section > .box > .container > .form > .title > .right > h2 {
+  font-weight: 600;
+  font-size: 21px;
+  letter-spacing: 0.8px;
+}
+
+.contact-section > .box > .container > .form > .title > .right > p {
+  font-weight: 500;
+  width: 270px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #b2b0c2;
+}
+
+.contact-section > .box > .container > .form > form {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  width: 100%;
+}
+
+.contact-section > .box > .container > .form > form > label {
+  font-size: 15px;
+}
+
+.contact-section > .box > .container > .form > form > label > span {
+  font-size: 14px;
+  color: #b2b0c2;
+}
+
+.contact-section > .box > .container > .form > form > .container {
+  display: flex;
+  position: relative;
+  width: 100%;
+}
+
+.contact-section > .box > .container > .form > form > .container > input {
+  height: 40px;
+  width: 100%;
+  font-size: 16px;
+  border-radius: 10px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.055),
+    rgba(255, 255, 255, 0.025)
+  );
+  border: 1px solid rgba(135, 195, 255, 0.18);
+  backdrop-filter: blur(18px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.02),
+    0 10px 20px rgba(0, 0, 0, 0.12);
+  transition:
+    border 0.35s,
+    box-shadow 0.35s,
+    background 0.35s;
+  outline: none;
+  padding: 0 10px;
+  color: #fff;
+  margin-bottom: 9px;
+}
+
+.contact-section
+  > .box
+  > .container
+  > .form
+  > form
+  > .container
+  > input::placeholder,
+.contact-section
+  > .box
+  > .container
+  > .form
+  > form
+  > .container
+  > textarea::placeholder {
+  color: #b2b0c2;
+}
+
+.contact-section > .box > .container > .form > form > .container > textarea {
+  height: 90px;
+  width: 100%;
+  font-size: 16px;
+  border-radius: 10px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.055),
+    rgba(255, 255, 255, 0.025)
+  );
+  border: 1px solid rgba(135, 195, 255, 0.18);
+  backdrop-filter: blur(18px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.02),
+    0 10px 20px rgba(0, 0, 0, 0.12);
+  transition:
+    border 0.35s,
+    box-shadow 0.35s,
+    background 0.35s;
+  outline: none;
+  padding: 10px;
+  color: #fff;
+  margin-bottom: 9px;
+}
+
+.contact-section > .box > .container > .form > form > .container > input:hover,
+.contact-section
+  > .box
+  > .container
+  > .form
+  > form
+  > .container
+  > textarea:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.07),
+    rgba(255, 255, 255, 0.03)
+  );
+  border-color: rgba(120, 200, 255, 0.25);
+}
+
+.contact-section > .box > .container > .form > form > .container input:focus,
+.contact-section
+  > .box
+  > .container
+  > .form
+  > form
+  > .container
+  textarea:focus {
+  border-color: #59bfff;
+  box-shadow:
+    0 0 0 3px rgba(89, 191, 255, 0.12),
+    0 0 20px rgba(89, 191, 255, 0.08);
+}
+
+.contact-section > .box > .container > .form > form > .container > svg {
+  position: absolute;
+  top: 11px;
+  right: 10px;
+}
+
+.contact-section > .box > .container > .form > form > .upload-box {
+  width: 100%;
+}
+
+.contact-section > .box > .container > .form > form > .upload-box > .drop-area {
+  height: 70px;
+  border-radius: 8px;
+  border: 1px dashed rgba(130, 190, 255, 0.22);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.021),
+    rgba(255, 255, 255, 0.015)
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 12px 25px rgba(0, 0, 0, 0.14);
+  backdrop-filter: blur(18px);
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 0 35px;
+  box-sizing: border-box;
+  gap: 18px;
+  cursor: pointer;
+
+  transition:
+    background 0.35s,
+    border-color 0.35s,
+    box-shadow 0.35s,
+    transform 0.35s;
+  animation: fadeInDrop 0.35s ease;
+}
+@keyframes fadeInDrop {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.contact-section
+  > .box
+  > .container
+  > .form
+  > form
+  > .upload-box
+  > .drop-area:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(75, 180, 255, 0.07),
+    rgba(75, 180, 255, 0.03)
+  );
+  border-color: #52c8fa56;
+}
+
+.contact-section
+  > .box
+  > .container
+  > .form
+  > form
+  > .upload-box
+  > .drop-area
+  > .box {
+  width: 43px;
+  height: 43px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.055),
+    rgba(255, 255, 255, 0.025)
+  );
+  border: 1px solid rgba(135, 195, 255, 0.18);
+  backdrop-filter: blur(18px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.02),
+    0 10px 22px rgba(0, 0, 0, 0.18),
+    0 0 18px rgba(80, 150, 255, 0.05);
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.drop-area > .box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 12%;
+  width: 76%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.8),
+    transparent
+  );
+  opacity: 0.8;
+}
+
+.drop-area > .box::after {
+  content: "";
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  right: -25px;
+  top: -25px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(90, 180, 255, 0.1), transparent 72%);
+  pointer-events: none;
+}
+
+.drop-area > .box svg {
+  width: 22px;
+  height: 22px;
+  transition: 0.35s all ease;
+}
+
+.drop-area:hover > .box svg {
+  color: #ffffff;
+  transform: scale(1.08);
+}
+
+.contact-section
+  > .box
+  > .container
+  > .form
+  > form
+  > .upload-box
+  > .drop-area
+  > .text {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  color: #b2b0c2;
+  font-size: 13.5px;
+}
+
+.contact-section > .box > .container > .form > form > button[type="submit"] {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 11px;
+  cursor: pointer;
+  border-radius: 28px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  border: 1px solid rgba(120, 190, 255, 0.22);
+  background: linear-gradient(
+    180deg,
+    rgba(40, 115, 255, 0.92) 0%,
+    rgba(18, 78, 205, 0.94) 55%,
+    rgba(11, 58, 165, 0.98) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.12),
+    0 10px 20px rgba(18, 70, 180, 0.18);
+  transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-section
+  > .box
+  > .container
+  > .form
+  > form
+  > button[type="submit"]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 8%;
+  width: 84%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.9),
+    transparent
+  );
+  opacity: 0.75;
+}
+
+.contact-section
+  > .box
+  > .container
+  > .form
+  > form
+  > button[type="submit"]::after {
+  content: "";
+  position: absolute;
+  top: -40px;
+  left: -35px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.12),
+    transparent 72%
+  );
+  pointer-events: none;
+}
+
+.contact-section
+  > .box
+  > .container
+  > .form
+  > form
+  > button[type="submit"]:hover {
+  transform: translateY(-2px);
+  border-color: rgba(140, 205, 255, 0.35);
+  background: linear-gradient(
+    180deg,
+    rgba(49, 117, 233, 0.95),
+    rgba(22, 90, 220, 0.95),
+    rgba(14, 65, 180, 0.98)
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 14px 26px rgba(30, 90, 210, 0.22);
+}
+
+.contact-section
+  > .box
+  > .container
+  > .form
+  > form
+  > button[type="submit"]:active {
+  transform: translateY(1px);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.18);
+}
+
+.contact-section > .box > .container > .form > form > .subline {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 10px;
+  font-size: 14px;
+  color: #b2b0c2;
+  margin-top: 11px;
+  box-sizing: border-box;
+}
+
+/* ─── Text Part ─── */
+
+.contact-section > .box > .container > .text {
+  display: flex;
+  flex-direction: column;
+  height: 90%;
+  background: linear-gradient(
+    180deg,
+    rgba(25, 45, 90, 0.42),
+    rgba(8, 18, 45, 0.55)
+  );
+  border: 1px solid rgba(130, 190, 255, 0.18);
+  backdrop-filter: blur(12px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.03),
+    0 15px 40px rgba(0, 0, 0, 0.25),
+    0 0 30px rgba(80, 140, 255, 0.04);
+  border-radius: 28px 28px 180px 28px;
+  box-sizing: border-box;
+  position: relative;
+  padding: 30px 27px;
+  overflow: hidden;
+}
+
+.contact-section > .box > .container > .text::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08),
+    transparent 18%,
+    transparent 82%,
+    rgba(255, 255, 255, 0.03)
+  );
+  pointer-events: none;
+}
+
+.contact-section > .box > .container > .text::after {
+  content: "";
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  top: -180px;
+  right: -180px;
+  background: radial-gradient(
+    circle,
+    rgba(85, 180, 255, 0.12),
+    transparent 70%
+  );
+  filter: blur(20px);
+  pointer-events: none;
+}
+
+.contact-section > .box > .container > .text > h1 {
+  font-size: 72px;
+  letter-spacing: 3px;
+  font-family: "Archivo";
+  font-weight: 800;
+  background: linear-gradient(
+    180deg,
+    rgba(145, 190, 255, 0.35),
+    rgba(11, 24, 51, 0.678)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0.9;
+  text-transform: uppercase;
+}
+
+.contact-section > .box > .container > .text > h2 {
+  transform: translateY(-35px);
+  font-size: 35px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  line-height: 46px;
+  background: linear-gradient(180deg, #ffffff, #d8ebff 45%, #8cbcff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 12px rgba(120, 170, 255, 0.08);
+}
+
+.contact-section > .box > .container > .text > p {
+  transform: translateY(-15px);
+  width: 355px;
+  line-height: 1.8;
+  font-size: 15px;
+  color: rgba(220, 235, 255, 0.72);
+  font-weight: 400;
+}
+
+.contact-section > .box > .container > .text > .line {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(87, 200, 255, 0.9),
+    transparent
+  );
+  margin: 40px 0;
+}
+
+.contact-section > .box > .container > .text > .line > .circle {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  position: relative;
+  background: radial-gradient(circle, #ffffff 0%, #88ddff 45%, #44bfff 100%);
+  box-shadow:
+    0 0 8px rgba(90, 200, 255, 0.9),
+    0 0 18px rgba(90, 200, 255, 0.55),
+    0 0 40px rgba(90, 200, 255, 0.18);
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow:
+      0 0 8px rgba(90, 200, 255, 0.8),
+      0 0 18px rgba(90, 200, 255, 0.45);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow:
+      0 0 12px rgba(120, 220, 255, 1),
+      0 0 28px rgba(120, 220, 255, 0.8),
+      0 0 55px rgba(120, 220, 255, 0.28);
+  }
+}
+
+.contact-section > .box > .container > .text > .line > .circle::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(90, 200, 255, 0.28),
+    transparent 72%
+  );
+}
+
+.contact-section > .box > .container > .text > .item-container {
+  display: flex;
+  gap: 28px;
+  align-items: start;
+  justify-content: center;
+}
+
+.contact-section > .box > .container > .text > .item-container > .item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.contact-section
+  > .box
+  > .container
+  > .text
+  > .item-container
+  > .item
+  > .frame {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.02)
+  );
+  border: 1px solid rgba(120, 180, 255, 0.18);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 8px 18px rgba(0, 0, 0, 0.16);
+  margin-bottom: 8px;
+}
+
+.contact-section
+  > .box
+  > .container
+  > .text
+  > .item-container
+  > .item
+  > .frame
+  > svg {
+  color: #73d5ff;
+  filter: drop-shadow(0 0 10px rgba(80, 180, 255, 0.4));
+}
+
+.contact-section > .box > .container > .text > .item-container > .item > p {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  color: #c3e3fa;
+}
+
+.contact-section > .box > .container > .text > .item-container > .item > span {
+  font-size: 13px;
+  line-height: 1.45;
+  color: rgba(205, 220, 240, 0.68);
+}
+.contact-section .drop-area.dragging {
+  border-color: rgba(100, 195, 255, 0.75) !important;
+
+  background: linear-gradient(
+    180deg,
+    rgba(70, 180, 255, 0.09),
+    rgba(70, 180, 255, 0.04)
+  );
+
+  box-shadow:
+    0 0 35px rgba(75, 170, 255, 0.12),
+    inset 0 0 25px rgba(75, 170, 255, 0.05);
+
+  transform: scale(1.015);
+}
+
+.contact-section .drop-area.dragging .box {
+  transform: scale(1.08);
+  transition: all ease 0.3s;
+}
+
+.contact-section .drop-area.dragging .box svg {
+  transform: scale(1.08);
+}
+
+.contact-section .drop-area.dragging .text p:first-child {
+  color: #ffffff;
+}
+
+.contact-section .drop-area.dragging .text p:last-child {
+  color: #8ddcff;
+}
+.contact-section .upload-preview {
+  width: 100%;
+  height: 115px;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 14px 18px;
+  box-sizing: border-box;
+
+  border-radius: 10px;
+
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.06),
+    rgba(255, 255, 255, 0.03)
+  );
+
+  border: 1px solid rgba(130, 190, 255, 0.22);
+
+  backdrop-filter: blur(16px);
+
+  animation: fileAppear 0.35s ease;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.3s ease;
+}
+
+.upload-preview.removing {
+  opacity: 0;
+  transform: scale(0.96);
+  filter: blur(6px);
+}
+.preview-top {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.contact-section .preview-left {
+  display: flex;
+
+  align-items: center;
+
+  gap: 16px;
+
+  overflow: hidden;
+  flex: 1;
+
+  min-width: 0;
+}
+
+.contact-section .preview-left .icon {
+  width: 46px;
+
+  height: 46px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 14px;
+
+  background: rgba(72, 145, 255, 0.12);
+
+  color: #7dd3ff;
+
+  flex-shrink: 0;
+}
+
+.contact-section .preview-left .info {
+  display: flex;
+
+  flex-direction: column;
+
+  overflow: hidden;
+  flex: 1;
+
+  min-width: 0;
+}
+
+.contact-section .preview-left p {
+  font-size: 15px;
+
+  font-weight: 600;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  max-width: 210px;
+}
+
+.contact-section .preview-left span {
+  margin-top: 3px;
+
+  font-size: 13px;
+
+  color: #9faec5;
+}
+
+.contact-section .remove-file {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+
+  height: 36px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  color: #fff;
+
+  background: rgba(255, 255, 255, 0.04);
+
+  transition: 0.3s;
+}
+
+.contact-section .remove-file:hover {
+  background: rgba(255, 80, 80, 0.16);
+
+  color: #ff9a9a;
+}
+
+@keyframes fileAppear {
+  from {
+    opacity: 0;
+
+    transform: translateY(10px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0) scale(1);
+  }
+}
+.progress {
+  width: 100%;
+  height: 6px;
+
+  margin-top: 12px;
+
+  border-radius: 999px;
+
+  overflow: hidden;
+
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.upload-preview.uploaded .progress-fill {
+  background: linear-gradient(90deg, #53ff93, #3fd67c);
+
+  box-shadow: 0 0 18px rgba(83, 255, 147, 0.45);
+}
+.progress-fill {
+  height: 100%;
+
+  width: 0;
+
+  border-radius: 999px;
+
+  transition: width 0.2s linear;
+
+  background: linear-gradient(90deg, #66d8ff, #478dff);
+
+  box-shadow: 0 0 18px rgba(85, 180, 255, 0.35);
+}
+
+.progress-footer {
+  width: 100%;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-top: 8px;
+
+  font-size: 13px;
+
+  color: #aeb8cb;
+}
+.icon.success {
+  background: rgba(82, 255, 150, 0.12);
+
+  /* color: #53ff93; */
+
+  /* box-shadow: 0 0 18px rgba(83, 255, 147, 0.25); */
+}
+.upload-preview.uploaded {
+  animation: uploadDone 0.45s ease;
+}
+
+@keyframes uploadDone {
+  0% {
+    transform: scale(0.98);
+  }
+
+  40% {
+    transform: scale(1.02);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.contact-section button[type="submit"]:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+
+  background: linear-gradient(
+    180deg,
+    rgba(80, 90, 110, 0.85),
+    rgba(55, 65, 85, 0.9)
+  );
+
+  border-color: rgba(255, 255, 255, 0.08);
+
+  box-shadow: none;
+
+  transform: none;
+}
+.contact-section
+  > .box
+  > .container
+  > .form
+  > form
+  > button[type="submit"]:disabled,
+.contact-section
+  > .box
+  > .container
+  > .form
+  > form
+  > button[type="submit"]:disabled:hover {
+  cursor: default;
+  opacity: 0.55;
+
+  transform: none;
+  box-shadow: none;
+
+  background: linear-gradient(
+    180deg,
+    rgba(80, 90, 110, 0.85),
+    rgba(55, 65, 85, 0.9)
+  );
+
+  border-color: rgba(255, 255, 255, 0.08);
+}
+.remove-file {
+  transform-origin: center;
+
+  transition:
+    opacity 0.3s,
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.remove-file.hide {
+  opacity: 0;
+
+  transform: scale(0.3) rotate(180deg);
+
+  pointer-events: none;
+}
+.toast {
+  position: fixed;
+
+  right: 35px;
+  bottom: 35px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 15px 22px;
+
+  border-radius: 14px;
+
+  color: #fff;
+
+  backdrop-filter: blur(20px);
+
+  animation: toastIn 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+
+  z-index: 9999;
+
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+}
+
+.toast.success {
+  background: rgba(36, 185, 105, 0.18);
+  border: 1px solid rgba(83, 255, 147, 0.35);
+}
+
+.toast.error {
+  background: rgba(220, 70, 70, 0.18);
+  border: 1px solid rgba(255, 120, 120, 0.35);
+}
+
+.toast span {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(25px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes toastOut {
+  to {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+  }
+}
+
+.toast.hide {
+  animation: toastOut 0.35s forwards;
+}
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

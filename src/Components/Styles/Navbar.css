@@ -1,0 +1,161 @@
+/* =================== NAVBAR =================== */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px;
+  box-sizing: border-box;
+
+  height: 85px;
+  width: 100%;
+
+  background-color: #192a5380;
+  border-bottom: 2px solid #3a508b73;
+  border-radius: 30px 30px 0 0;
+
+  backdrop-filter: blur(12px);
+
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.navbar > .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar > .logo > img {
+  height: 50px;
+}
+
+.navbar > .logo > p {
+  font-size: 30px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-family: "SpaceGrotesk";
+  color: #fff;
+}
+
+.navbar > ul {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar > ul > li {
+  position: relative;
+
+  padding: 6px 0;
+
+  font-size: 17px;
+  letter-spacing: 1px;
+
+  cursor: pointer;
+
+  color: rgba(255, 255, 255, 0.7);
+
+  transition: color 0.3s ease;
+}
+
+.navbar > ul > li:hover {
+  color: #fff;
+}
+
+.navbar > ul > li::after {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  bottom: -5px;
+
+  width: 0;
+  height: 2px;
+
+  border-radius: 20px;
+
+  background-color: #92d4fa;
+
+  transform: translateX(-50%);
+  transition: width 0.35s ease;
+}
+
+.navbar > ul > li:hover::after {
+  width: 100%;
+  box-shadow: 0 0 10px rgb(0, 153, 224);
+}
+
+.navbar > ul > li.active {
+  color: #fff;
+}
+
+.navbar > ul > li.active::after {
+  width: 100%;
+}
+
+.navbar > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  width: 150px;
+  height: 56px;
+
+  border: 2px solid rgb(42, 69, 138);
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  color: #fff;
+
+  font-size: 18px;
+  font-weight: 700;
+  font-family: "Inter";
+  letter-spacing: 0.4px;
+
+  background: linear-gradient(
+    180deg,
+    rgba(35, 58, 114, 1) 0%,
+    rgba(21, 40, 86, 1) 100%
+  );
+
+  transition: all 0.25s ease;
+}
+
+.navbar > button p {
+  margin: 0;
+  line-height: 1;
+}
+
+.navbar > button:hover {
+  transform: translateY(-2px);
+
+  border-color: #92d4fa;
+
+  background: linear-gradient(
+    180deg,
+    rgba(45, 78, 160, 1) 0%,
+    rgba(28, 55, 120, 1) 100%
+  );
+
+  box-shadow:
+    0 0 15px rgba(146, 212, 250, 0.164),
+    0 8px 25px rgba(0, 0, 0, 0.35);
+}
+
+.navbar > button:active {
+  transform: translateY(0);
+
+  box-shadow: 0 0 8px rgba(146, 212, 250, 0.4);
+}
+
+.navbar > button > span {
+  color: #a8edfd;
+}

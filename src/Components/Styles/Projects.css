@@ -1,0 +1,514 @@
+/* =================== SECTION =================== */
+.projects-section {
+  width: 100%;
+  height: 100vh;
+  padding: 35px 100px;
+  padding-bottom: 0;
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: url(../../assets/Images/ProjectsBG.webp);
+  background-size: cover;
+  background-position: center;
+  z-index: 2;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.2s ease-in-out;
+}
+
+.projects-section.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.projects-section.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.projects-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+  z-index: 0;
+}
+
+.projects-section.show::before {
+  opacity: 1;
+}
+
+/* =================== BOX =================== */
+.projects-section > .box {
+  display: flex;
+  flex-direction: column;
+  height: 97%;
+  border-radius: 30px;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    rgba(20, 35, 70, 0.377),
+    rgba(10, 18, 40, 0.404)
+  );
+  border: 1.5px solid rgba(146, 212, 250, 0.22);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 30px 80px rgba(0, 0, 0, 0.55),
+    0 0 40px rgba(58, 127, 231, 0.08);
+  backdrop-filter: blur(0.5px) saturate(120%);
+  position: relative;
+  z-index: 1;
+
+  opacity: 0;
+  transform: translateY(20px) scale(0.98);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.projects-section.show > .box {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition:
+    opacity 0.5s ease 0.1s,
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
+}
+
+/* =================== CONTENT =================== */
+.projects-section > .box > .content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 36px 50px 24px;
+  overflow: hidden;
+  gap: 0;
+}
+
+/* =================== FADE ITEMS =================== */
+.fade-item {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.projects-section.show .fade-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.delay-0 {
+  transition-delay: 0.25s;
+}
+.delay-1 {
+  transition-delay: 0.4s;
+}
+.delay-2 {
+  transition-delay: 0.55s;
+}
+
+/* =================== SECTION HEADER =================== */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 28px;
+  flex-shrink: 0;
+}
+
+.title-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title-block h1 {
+  font-size: 46px;
+  font-weight: 900;
+  font-family: "Archivo";
+  background: linear-gradient(180deg, #ffffff 0%, #dceeff 45%, #92d4fa 100%);
+  line-height: 1.15;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+  text-align: center;
+  text-shadow: 0 0 30px rgba(146, 212, 250, 0.15);
+}
+
+.title-underline {
+  width: 160px;
+  height: 3px;
+  margin: 16px 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #92d4fa,
+    #3a7fe7,
+    transparent
+  );
+  border-radius: 999px;
+}
+
+.title-block > p {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 16px;
+  letter-spacing: 0.8px;
+  text-align: center;
+  line-height: 1.7;
+}
+
+/* =================== CONTROLS =================== */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.slide-buttons {
+  display: flex;
+}
+
+.slide-buttons button {
+  width: 46px;
+  height: 46px;
+  border: 1.5px solid rgba(146, 212, 250, 0.2);
+  color: #cbe7fd;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  background: linear-gradient(
+    135deg,
+    rgba(42, 111, 190, 0.6),
+    rgba(0, 74, 143, 0.4)
+  );
+}
+
+.slide-buttons .left {
+  border-radius: 12px 0 0 12px;
+  border-right: none;
+}
+
+.slide-buttons .right {
+  border-radius: 0 12px 12px 0;
+}
+
+.slide-buttons button:hover {
+  background: linear-gradient(135deg, rgb(42, 111, 190), rgb(0, 74, 143));
+  border-color: rgba(146, 212, 250, 0.45);
+}
+
+.slide-buttons button:active {
+  transform: scale(0.95);
+}
+
+.view-all {
+  padding: 11px 22px;
+  border-radius: 12px;
+  border: 2px solid rgb(42, 69, 138);
+  background: linear-gradient(
+    160deg,
+    rgba(43, 77, 161, 1) 0%,
+    rgba(10, 21, 48, 1) 100%
+  );
+  color: #fff;
+  font-weight: 900;
+  font-size: 16px;
+  font-family: "Inter";
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.view-all:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 15px rgba(146, 212, 250, 0.164),
+    0 8px 25px rgba(0, 0, 0, 0.35);
+  background: linear-gradient(
+    180deg,
+    rgba(45, 78, 160, 1) 0%,
+    rgb(20, 41, 90) 100%
+  );
+  border-color: #92d4fa;
+}
+
+.view-all svg {
+  color: #a8edfd;
+  transition: transform 0.3s ease;
+}
+
+.view-all:hover svg {
+  transform: translateX(5px);
+}
+
+.view-all:active {
+  transform: translateY(0);
+  box-shadow: 0 0 8px rgba(146, 212, 250, 0.4);
+}
+
+/* =================== VIEWPORT & TRACK =================== */
+.viewport {
+  flex: 1;
+  overflow: hidden;
+  padding: 20px 0 24px;
+  box-sizing: border-box;
+  cursor: grab;
+}
+
+.viewport:active {
+  cursor: grabbing;
+}
+
+.track {
+  display: flex;
+  gap: 24px;
+  transition: transform 0.6s ease-out;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* =================== CARD WRAPPER =================== */
+.project-wrapper {
+  flex-shrink: 0;
+  width: 560px;
+  height: 100%;
+  border-radius: 22px;
+  will-change: transform, box-shadow;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.5),
+    0 2px 6px rgba(0, 0, 0, 0.35);
+  transition:
+    box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.project-wrapper:hover {
+  transform: translateY(-10px) scale(1.01);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.5),
+    0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+/* =================== CARD =================== */
+.project {
+  width: 100%;
+  height: 100%;
+  border-radius: 22px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+  color: #fff;
+  background: linear-gradient(
+    160deg,
+    rgba(20, 50, 110, 0.65),
+    rgba(8, 28, 65, 0.7)
+  );
+  border: 1.5px solid rgba(146, 212, 250, 0.18);
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+  overflow: hidden;
+}
+
+.project-wrapper:hover > .project {
+  border-color: rgba(146, 212, 250, 0.42);
+}
+
+/* =================== CARD IMAGE =================== */
+.project > img {
+  width: 100%;
+  height: 65%;
+  object-fit: cover;
+  flex-shrink: 0;
+  filter: brightness(0.82);
+  transition:
+    transform 0.6s ease,
+    filter 0.5s ease;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.project-wrapper:hover > .project > img {
+  transform: scale(1.012);
+  filter: brightness(1);
+}
+
+/* =================== OVERLAY =================== */
+.overlay {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 15px 22px 15px 22px;
+  box-sizing: border-box;
+  background: linear-gradient(
+    to top,
+    rgba(5, 28, 65, 0.95),
+    rgba(5, 28, 65, 0.5)
+  );
+  transition: background 0.4s ease;
+}
+
+.project-wrapper:hover .overlay {
+  background: linear-gradient(
+    to top,
+    rgba(5, 28, 65, 1),
+    rgba(5, 28, 65, 0.65)
+  );
+}
+
+.overlay > .top-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.overlay > .top-container > .left > h3 {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 5px;
+}
+
+.overlay > .top-container > .left > p {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 13px;
+  letter-spacing: 0.3px;
+}
+
+.overlay > .top-container > a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  text-decoration: none;
+  padding: 7px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(146, 212, 250, 0.25);
+  background: rgba(146, 212, 250, 0.08);
+  color: #cce8fd;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.overlay > .top-container > a:hover {
+  background: rgba(146, 212, 250, 0.16);
+  border-color: rgba(146, 212, 250, 0.5);
+  transform: translateY(-2px);
+}
+
+/* =================== DESCRIPTION =================== */
+.overlay > .description {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 13.5px;
+  line-height: 1.65;
+  letter-spacing: 0.2px;
+  flex: 1;
+  margin: 10px 0 0;
+}
+
+/* =================== TAGS =================== */
+.overlay > .label {
+  display: flex;
+  gap: 7px;
+  margin-top: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.overlay > .label > div {
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  background: linear-gradient(
+    135deg,
+    rgba(146, 212, 250, 0.15),
+    rgba(58, 127, 231, 0.08)
+  );
+  border: 1px solid rgba(146, 212, 250, 0.3);
+  color: #a8ddfa;
+  transition: all 0.25s ease;
+}
+
+.overlay > .label > div:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(146, 212, 250, 0.25),
+    rgba(58, 127, 231, 0.15)
+  );
+  border-color: rgba(146, 212, 250, 0.55);
+  color: #d6eeff;
+}
+.project-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 8px 14px;
+
+  border-radius: 999px;
+
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.22);
+
+  color: #fbbf24;
+
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+
+  backdrop-filter: blur(8px);
+
+  user-select: none;
+}
+.status-dot {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: #fbbf24;
+
+  box-shadow:
+    0 0 8px rgba(251, 191, 36, 0.6),
+    0 0 16px rgba(251, 191, 36, 0.25);
+
+  animation: statusPulse 2s ease-in-out infinite;
+}
+@keyframes statusPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+}
+
+/* =================== FOOTER NOTE =================== */
+.footer-note {
+  flex-shrink: 0;
+  padding: 14px 0 0;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.7;
+  text-align: center;
+}

@@ -1,0 +1,763 @@
+/* ─────────────────────────────────────────────
+   SECTION — full-viewport wrapper
+───────────────────────────────────────────── */
+.about-section {
+  width: 100%;
+  height: 100vh;
+  padding: 35px 100px;
+  padding-bottom: 0;
+  box-sizing: border-box;
+
+  position: absolute;
+  inset: 0;
+
+  background-image: url("../../assets/Images/AboutBG.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  opacity: 0;
+  pointer-events: none;
+
+  transition: opacity 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.45s;
+  z-index: 999;
+  overflow: hidden;
+}
+
+/* Background layer — prevents the Hero section from
+   showing through the glass panels during transitions */
+.about-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background-image: url("../../assets/Images/About-BG.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  z-index: -2;
+}
+
+/* Visible state */
+.about-section.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Subtle dark overlay that fades in with the section */
+.about-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.12);
+
+  opacity: 0;
+  transition: opacity 1.8s ease-in-out;
+
+  z-index: -1;
+}
+
+.about-section.show::before {
+  opacity: 1;
+}
+
+/* مهم: هنگام خروج هم نرم برگرده */
+.about-section:not(.show)::before {
+  opacity: 0;
+}
+
+/* ─────────────────────────────────────────────
+   BOX — rounded glass card that holds everything
+───────────────────────────────────────────── */
+.about-section > .box {
+  display: flex;
+  flex-direction: column;
+
+  height: 97%;
+
+  border-radius: 30px;
+  overflow: hidden;
+
+  position: relative;
+  z-index: 2;
+
+  background: linear-gradient(
+    180deg,
+    rgba(20, 35, 70, 0.377),
+    rgba(10, 18, 40, 0.404)
+  );
+
+  border: 1.5px solid rgba(146, 212, 250, 0.22);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 18px 45px rgba(0, 0, 0, 0.25),
+    0 0 18px rgba(58, 127, 231, 0.06);
+
+  backdrop-filter: blur(0.5px) saturate(120%);
+
+  opacity: 0;
+  transform: translateY(30px) scale(0.98);
+
+  transition:
+    opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+
+  will-change: opacity, transform;
+  transition-delay: 0.35s;
+}
+
+/* Box entrance — slightly delayed so the section fade plays first */
+
+.about-section.show > .box {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition-delay: 0.25s;
+}
+.about-section:not(.show) > .box {
+  opacity: 0;
+  transform: translateY(40px) scale(0.97);
+  transition-delay: 0s;
+}
+/* ─────────────────────────────────────────────
+   CONTENT — two-column layout
+───────────────────────────────────────────── */
+.about-section > .box > .content {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* ─────────────────────────────────────────────
+   LEFT BOX — skill cards
+───────────────────────────────────────────── */
+.about-section > .box > .content > .left-box {
+  width: 60%;
+  height: 90%;
+
+  position: relative;
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0.025) 30%,
+      rgba(120, 180, 255, 0.045) 60%,
+      rgba(255, 255, 255, 0.015) 100%
+    ),
+    linear-gradient(180deg, rgba(18, 30, 60, 0.42), rgba(10, 18, 42, 0.55));
+
+  backdrop-filter: blur(26px) saturate(170%) brightness(1.08);
+  -webkit-backdrop-filter: blur(26px) saturate(170%) brightness(1.08);
+
+  border: 1px solid rgba(255, 255, 255, 0.16);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.03),
+    0 18px 50px rgba(0, 0, 0, 0.25),
+    0 0 35px rgba(120, 180, 255, 0.08);
+
+  border-radius: 34px 34px 34px 180px;
+
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+/* Top edge shimmer line */
+.about-section > .box > .content > .left-box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 40px;
+
+  width: 35%;
+  height: 1px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.18),
+    transparent
+  );
+
+  pointer-events: none;
+}
+
+/* Corner ambient glow */
+.about-section > .box > .content > .left-box::after {
+  content: "";
+  position: absolute;
+  top: -60px;
+  left: -40px;
+
+  width: 120px;
+  height: 120px;
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.03) 40%,
+    transparent 75%
+  );
+
+  filter: blur(18px);
+  pointer-events: none;
+}
+
+/* Section intro text */
+.about-section > .box > .content > .left-box > .title {
+  margin-bottom: 22px;
+}
+
+.about-section > .box > .content > .left-box > .title > h2 {
+  font-size: 42px;
+  font-weight: 800;
+  letter-spacing: -1px;
+
+  background: linear-gradient(180deg, #e0ecff 0%, #d5e8fc 45%, #baccff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+
+  filter: drop-shadow(0 0 10px rgba(146, 212, 250, 0.08));
+}
+
+.about-section > .box > .content > .left-box > .title > p {
+  width: 85%;
+  font-size: 17px;
+  line-height: 30px;
+  letter-spacing: 0.3px;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* Cards grid */
+.about-section > .box > .content > .left-box > .cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.about-section > .box > .content > .left-box > .cards > .card {
+  width: 30%;
+  min-height: 210px;
+  position: relative;
+
+  padding: 24px;
+  box-sizing: border-box;
+  border-radius: 24px;
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(255, 255, 255, 0.04) 28%,
+      rgba(140, 200, 255, 0.05) 60%,
+      rgba(255, 255, 255, 0.02) 100%
+    ),
+    linear-gradient(180deg, rgba(22, 38, 72, 0.32), rgba(10, 18, 40, 0.45));
+
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.04),
+    0 10px 30px rgba(0, 0, 0, 0.18),
+    0 0 20px rgba(120, 180, 255, 0.08);
+
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+
+/* Ambient corner glow per card */
+.about-section > .box > .content > .left-box > .cards > .card::before {
+  content: "";
+  position: absolute;
+  top: -90px;
+  left: -90px;
+
+  width: 220px;
+  height: 220px;
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    rgba(120, 180, 255, 0.18) 0%,
+    transparent 70%
+  );
+
+  pointer-events: none;
+}
+
+/* Hover light overlay per card */
+.about-section > .box > .content > .left-box > .cards > .card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  border-radius: inherit;
+
+  background: linear-gradient(
+    180deg,
+    rgba(110, 175, 255, 0.08) 0%,
+    rgba(110, 175, 255, 0.02) 100%
+  );
+
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+/* Card hover state */
+.about-section > .box > .content > .left-box > .cards > .card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(145, 195, 255, 0.3);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 18px 40px rgba(0, 0, 0, 0.28),
+    0 0 35px rgba(80, 150, 255, 0.15);
+}
+
+.about-section > .box > .content > .left-box > .cards > .card:hover::after {
+  opacity: 1;
+}
+
+.about-section > .box > .content > .left-box > .cards > .card:hover h3 {
+  filter: brightness(1.08);
+}
+
+/* Card title row (icon + heading) */
+.about-section > .box > .content > .left-box > .cards > .card > .title {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.about-section
+  > .box
+  > .content
+  > .left-box
+  > .cards
+  > .card
+  > .title
+  > .circle {
+  width: 58px;
+  height: 58px;
+
+  border-radius: 18px;
+
+  background: rgba(11, 35, 82, 0.5);
+  border: 1px solid rgba(146, 212, 250, 0.22);
+  backdrop-filter: blur(12px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.about-section > .box > .content > .left-box > .cards > .card > .title > h3 {
+  font-size: 22px;
+  line-height: 1.25;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: 0.3px;
+
+  background: linear-gradient(180deg, #d7e8fd 0%, #dbeaf8 35%, #c1ddfd 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  text-shadow: 0 0 22px rgba(90, 160, 255, 0.22);
+}
+
+.about-section > .box > .content > .left-box > .cards > .card > p {
+  font-size: 15px;
+  line-height: 24px;
+  letter-spacing: 0.2px;
+  max-width: 95%;
+
+  color: rgba(225, 240, 255, 0.72);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.25);
+}
+
+/* ─────────────────────────────────────────────
+   RIGHT BOX — personal story panel
+───────────────────────────────────────────── */
+.about-section > .box > .content > .right-box {
+  width: 35%;
+  height: 90%;
+
+  position: relative;
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0.025) 30%,
+      rgba(120, 180, 255, 0.045) 60%,
+      rgba(255, 255, 255, 0.015) 100%
+    ),
+    linear-gradient(180deg, rgba(18, 30, 60, 0.42), rgba(10, 18, 42, 0.55));
+
+  backdrop-filter: blur(26px) saturate(170%) brightness(1.08);
+  -webkit-backdrop-filter: blur(26px) saturate(170%) brightness(1.08);
+
+  border: 1px solid rgba(255, 255, 255, 0.16);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.03),
+    0 18px 50px rgba(0, 0, 0, 0.25),
+    0 0 35px rgba(120, 180, 255, 0.08);
+
+  border-radius: 34px 34px 180px 34px;
+
+  padding: 30px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Corner ambient glow */
+.about-section > .box > .content > .right-box::after {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -40px;
+
+  width: 120px;
+  height: 120px;
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.03) 40%,
+    transparent 75%
+  );
+
+  filter: blur(18px);
+  pointer-events: none;
+}
+
+/* "ABOUT ME" label */
+.right-box > span {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: #92d4fa;
+  margin-bottom: 15px;
+  width: 100%;
+  text-align: left;
+}
+
+/* Section heading */
+.right-box > h2 {
+  font-size: 40px;
+  letter-spacing: 0.8px;
+  line-height: 1.05;
+  font-weight: 800;
+  margin-bottom: 25px;
+  text-transform: capitalize;
+  background: linear-gradient(180deg, #ffffff 0%, #c7e2fc 45%, #b8d6ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Intro paragraph */
+.right-box > p {
+  font-size: 16px;
+  line-height: 29px;
+  color: rgba(255, 255, 255, 0.72);
+  margin-bottom: 30px;
+}
+
+/* ─────────────────────────────────────────────
+   MINDSET CARD — philosophy highlight
+───────────────────────────────────────────── */
+.right-box .mindset-card {
+  width: 91%;
+  padding: 22px;
+
+  display: flex;
+  gap: 18px;
+  align-items: center;
+
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(132, 173, 226, 0.212) 0%,
+      rgba(255, 255, 255, 0.05) 28%,
+      rgba(120, 180, 255, 0.05) 60%,
+      rgba(255, 255, 255, 0.02) 100%
+    ),
+    linear-gradient(180deg, rgba(22, 38, 72, 0.32), rgba(10, 18, 40, 0.45));
+
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.04),
+    0 12px 30px rgba(0, 0, 0, 0.18),
+    0 0 20px rgba(120, 180, 255, 0.08);
+
+  transition: 0.35s ease;
+
+  margin-bottom: 35px;
+}
+
+/* Icon container */
+.right-box .mindset-card .icon {
+  width: 58px;
+  height: 58px;
+
+  border-radius: 18px;
+
+  background: rgba(11, 35, 82, 0.7);
+  border: 1.5px solid rgba(146, 212, 250, 0.28);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* Icon shimmer overlay */
+.right-box .mindset-card .icon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    135deg,
+    rgba(120, 207, 255, 0.12) 0%,
+    transparent 60%
+  );
+
+  pointer-events: none;
+}
+
+.right-box .mindset-card h3 {
+  color: white;
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.right-box .mindset-card p {
+  font-size: 14px;
+  line-height: 24px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* ─────────────────────────────────────────────
+   JOURNEY — vertical timeline
+───────────────────────────────────────────── */
+.right-box .journey {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 100%;
+  gap: 24px;
+}
+
+.right-box .journey .step {
+  display: flex;
+  gap: 18px;
+  position: relative;
+}
+
+/* Timeline dot */
+.right-box .journey .step span {
+  width: 14px;
+  height: 14px;
+  margin-top: 7px;
+
+  border-radius: 50%;
+  background: #92d4fa;
+
+  box-shadow:
+    0 0 12px #92d4fa,
+    0 0 25px rgba(146, 212, 250, 0.4);
+
+  flex-shrink: 0;
+}
+
+/* Connector line between dots */
+.right-box .journey .step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 24px;
+
+  width: 2px;
+  height: calc(100% + 14px);
+
+  background: linear-gradient(180deg, rgba(146, 212, 250, 0.4), transparent);
+}
+
+.right-box .journey h4 {
+  color: white;
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.right-box .journey p {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 14px;
+  line-height: 22px;
+}
+
+/* ==========================================
+   ABOUT ENTRANCE ANIMATION
+========================================== */
+
+/* سکشن اصلی */
+
+.about-section.show {
+  opacity: 1;
+}
+
+/* دو پنل اصلی */
+.about-section .left-box,
+.about-section .right-box {
+  opacity: 0;
+  transition:
+    opacity 1.1s ease,
+    transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.about-section .left-box {
+  transform: translateX(-35px);
+}
+
+.about-section .right-box {
+  transform: translateX(35px);
+}
+
+.about-section.loaded .left-box,
+.about-section.loaded .right-box {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* عنوان سمت چپ */
+.about-section .left-box > .title {
+  opacity: 0;
+  transform: translateY(20px);
+
+  transition:
+    opacity 0.55s ease,
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.about-section.loaded .left-box > .title {
+  opacity: 1;
+  transform: translateY(0);
+
+  transition-delay: 0.05s;
+}
+
+/* کارت ها */
+.about-section .card {
+  opacity: 0;
+  transform: translateY(45px);
+  transition:
+    opacity 0.85s ease,
+    transform 0.85s ease;
+}
+
+.about-section.loaded .card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.about-section.loaded .card:nth-child(1) {
+  transition-delay: 0.25s;
+}
+.about-section.loaded .card:nth-child(2) {
+  transition-delay: 0.35s;
+}
+.about-section.loaded .card:nth-child(3) {
+  transition-delay: 0.45s;
+}
+.about-section.loaded .card:nth-child(4) {
+  transition-delay: 0.55s;
+}
+.about-section.loaded .card:nth-child(5) {
+  transition-delay: 0.65s;
+}
+.about-section.loaded .card:nth-child(6) {
+  transition-delay: 0.75s;
+}
+
+/* محتوای سمت راست */
+.about-section .right-box > span,
+.about-section .right-box > h2,
+.about-section .right-box > p,
+.about-section .mindset-card,
+.about-section .journey {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.about-section.loaded .right-box > span {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.5s ease 0.2s;
+}
+
+.about-section.loaded .right-box > h2 {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.5s ease 0.3s;
+}
+
+.about-section.loaded .right-box > p {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.5s ease 0.4s;
+}
+
+.about-section.loaded .mindset-card {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.6s ease 0.55s;
+}
+
+.about-section.loaded .journey {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.6s ease 0.7s;
+}

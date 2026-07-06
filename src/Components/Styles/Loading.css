@@ -1,0 +1,96 @@
+/* ------------------- Loader ------------------- */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background: #020611;
+  overflow: hidden;
+
+  opacity: 1;
+  transform: scale(1);
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+
+.loader.exit {
+  opacity: 0;
+  transform: scale(1.03);
+  pointer-events: none;
+}
+
+/* Title animation */
+.loader-title {
+  display: flex;
+  gap: 8px;
+}
+.loader-title span {
+  font-size: 42px;
+  font-weight: 900;
+  letter-spacing: 5px;
+  font-family: "Archivo";
+  opacity: 0;
+  transform: translateY(40px);
+  background: linear-gradient(180deg, #fff, #70a3d3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: reveal 0.6s forwards;
+}
+.loader-title span:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.loader-title span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.loader-title span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.loader-title span:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.loader-line {
+  width: 0;
+  height: 2px;
+  margin-top: 4px;
+  border-radius: 50px;
+  background: linear-gradient(90deg, #00c3ff, #0054c2);
+  animation: lineGrow 1s ease forwards;
+  animation-delay: 0.5s;
+  box-shadow: 0 0 15px #00c3ff;
+}
+
+.loader-sub {
+  margin-top: 15px;
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.6);
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards;
+  animation-delay: 0.4s;
+}
+
+/* Loader animations */
+@keyframes reveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes lineGrow {
+  to {
+    width: 240px;
+  }
+}
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
