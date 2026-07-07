@@ -1,9 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import "./Styles/Projects.css";
-import FinoraIMG from "../assets/Images/finora.webp";
-import CineVerseIMG from "../assets/Images/cineverse.webp";
-import JobPilotIMG from "../assets/Images/jobpilot.webp";
+import FinoraIMG from "../assets/Images/Finora.webp";
+import CineVerseIMG from "../assets/Images/CineVerse.webp";
+import JobPilotIMG from "../assets/Images/JobPilot.webp";
 import {
   ChevronRight,
   ChevronLeft,
