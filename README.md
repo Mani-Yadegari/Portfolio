@@ -1,3 +1,4 @@
+![Uploading screencapture-localhost-5173-2026-07-03-00_25_37.png…]()
 # 💼 Mani Yadegari Portfolio
 
 A modern and interactive personal portfolio built with **React** and **Vite** to showcase my projects, skills, and experience as a Front-End Developer.
@@ -26,10 +27,6 @@ A modern and interactive personal portfolio built with **React** and **Vite** to
 - Lucide React
 - Lottie
 - Git & GitHub
-
-## 📸 Screenshots
-
-> Add screenshots of your portfolio here.
 
 ## 🚀 Installation
 
