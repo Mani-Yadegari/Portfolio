@@ -6,6 +6,8 @@
   align-items: center;
   padding: 0 50px;
   box-sizing: border-box;
+  position: relative;
+  z-index: 1000;
 
   height: 85px;
   width: 100%;
@@ -158,4 +160,291 @@
 
 .navbar > button > span {
   color: #a8edfd;
+}
+/* Hide mobile button on desktop */
+.navbar > .mobile-menu {
+  display: none;
+}
+/* =====================================================
+   RESPONSIVE NAVBAR
+===================================================== */
+
+/* ==========================
+   LAPTOP
+========================== */
+
+@media (max-width: 1200px) {
+  .navbar {
+    padding: 0 35px;
+  }
+
+  .navbar > ul {
+    gap: 22px;
+  }
+
+  .navbar > ul > li {
+    font-size: 15px;
+  }
+
+  .navbar > button {
+    width: 130px;
+
+    height: 50px;
+
+    font-size: 16px;
+  }
+}
+
+/* ==========================
+   TABLET
+========================== */
+
+@media (max-width: 900px) {
+  .navbar {
+    height: 75px;
+
+    padding: 0 25px;
+
+    border-radius: 25px 25px 0 0;
+  }
+
+  .navbar > .logo > img {
+    height: 42px;
+  }
+
+  .navbar > .logo > p {
+    font-size: 26px;
+  }
+
+  /* hide desktop menu */
+
+  .navbar > ul {
+    display: none;
+  }
+
+  .navbar > button:not(.mobile-menu) {
+    display: none;
+  }
+
+  /* hamburger */
+
+  .navbar > .mobile-menu {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 45px;
+
+    height: 45px;
+
+    border-radius: 14px;
+
+    border: 1px solid rgba(146, 212, 250, 0.25);
+
+    background: linear-gradient(
+      180deg,
+      rgba(35, 58, 114, 1) 0%,
+      rgba(21, 40, 86, 1) 100%
+    );
+
+    backdrop-filter: blur(10px);
+
+    color: white;
+
+    font-size: 25px;
+
+    cursor: pointer;
+  }
+}
+
+/* ==========================
+   MOBILE
+========================== */
+
+@media (max-width: 576px) {
+  .navbar {
+    height: 70px;
+
+    padding: 0 18px;
+  }
+
+  .navbar > .logo {
+    gap: 7px;
+  }
+
+  .navbar > .logo > img {
+    height: 38px;
+  }
+
+  .navbar > .logo > p {
+    font-size: 22px;
+
+    letter-spacing: 2px;
+  }
+
+  .navbar > .mobile-menu {
+    width: 42px;
+
+    height: 42px;
+
+    font-size: 22px;
+  }
+}
+
+/* ==========================
+   SMALL MOBILE
+========================== */
+
+@media (max-width: 390px) {
+  .navbar {
+    padding: 0 15px;
+  }
+
+  .navbar > .logo > img {
+    height: 34px;
+  }
+
+  .navbar > .logo > p {
+    font-size: 20px;
+  }
+}
+.mobile-dropdown {
+  position: absolute;
+
+  top: 85px;
+  right: 20px;
+
+  width: 220px;
+
+  padding: 25px;
+
+  background: linear-gradient(
+    180deg,
+    rgba(25, 42, 83, 0.95),
+    rgba(10, 18, 40, 0.95)
+  );
+
+  border: 1px solid rgba(146, 212, 250, 0.25);
+
+  backdrop-filter: blur(20px);
+
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+  border-radius: 24px;
+
+  backdrop-filter: blur(20px);
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 20px;
+
+  z-index: 999;
+
+  animation: menuShow 0.3s ease;
+}
+
+.mobile-dropdown p {
+  margin: 0;
+
+  font-size: 18px;
+
+  color: white;
+
+  cursor: pointer;
+}
+
+.mobile-dropdown p:hover {
+  color: #92d4fa;
+}
+.mobile-dropdown p.active {
+  color: #92d4fa;
+  font-weight: 700;
+  position: relative;
+}
+
+.mobile-dropdown p.active::before {
+  content: "";
+
+  position: absolute;
+
+  left: -12px;
+  top: 50%;
+
+  width: 5px;
+  height: 22px;
+
+  border-radius: 10px;
+
+  background: #92d4fa;
+
+  transform: translateY(-50%);
+
+  box-shadow: 0 0 12px #0078af;
+}
+
+.mobile-dropdown button {
+  height: 45px;
+
+  border-radius: 14px;
+
+  border: 1px solid rgba(146, 212, 250, 0.35);
+
+  background: linear-gradient(
+    180deg,
+    rgba(35, 58, 114, 1),
+    rgba(21, 40, 86, 1)
+  );
+
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  cursor: pointer;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+.mobile-dropdown button:hover {
+  transform: translateY(-2px);
+
+  border-color: #92d4fa;
+
+  box-shadow:
+    0 0 15px rgba(146, 212, 250, 0.25),
+    0 10px 25px rgba(0, 0, 0, 0.35);
+
+  background: linear-gradient(
+    180deg,
+    rgba(45, 78, 160, 1),
+    rgba(28, 55, 120, 1)
+  );
+}
+
+@keyframes menuShow {
+  from {
+    opacity: 0;
+
+    transform: translateY(-15px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
 }

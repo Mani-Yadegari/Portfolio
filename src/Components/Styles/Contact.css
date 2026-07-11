@@ -1514,3 +1514,355 @@
     transform: rotate(360deg);
   }
 }
+
+/* ============================================================ */
+/* =============  RESPONSIVE / MOBILE REFLOW  ================== */
+/* ==  Desktop rules above are completely untouched.            == */
+/* ==  Same architecture as Hero/Projects/About: a "compact      == */
+/* ==  row" tier that keeps the 3 columns side-by-side as long   == */
+/* ==  as there's room, a "stacked" tier once they genuinely      == */
+/* ==  don't fit (with a single scrollbar on .contact-section    == */
+/* ==  itself, not nested inside .box), and a phone tier.        == */
+/* ============================================================ */
+
+@media (max-width: 1900px) {
+  /*
+    .social platform cards, and the fixed 355px-wide paragraph / 72px
+    heading in .text, need real room to avoid cramping — reliable only
+    above ~1900px. Below that the three columns get resized/rebalanced
+    instead of staying at their fixed desktop proportions.
+  */
+  .contact-section {
+    height: auto;
+    min-height: 100vh;
+    padding: 16px;
+  }
+
+  .contact-section > .box {
+    height: auto;
+  }
+
+  .contact-section > .box > .container {
+    height: auto;
+    align-items: stretch;
+    padding: 20px 16px;
+    gap: 20px;
+  }
+
+  .contact-section > .box > .container > div {
+    width: auto;
+    height: auto;
+  }
+
+  /* ---------------- SOCIAL ---------------- */
+  .contact-section > .box > .container > .social {
+    width: 26%;
+    height: auto;
+    gap: 12px;
+  }
+
+  .contact-section .social-top h3 {
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+
+  .contact-section > .box > .container > .social > .platform {
+    height: auto;
+    min-height: 120px;
+    padding: 16px;
+  }
+
+  .contact-section > .box > .container > .social > .platform > .title {
+    gap: 12px;
+  }
+
+  .contact-section
+    > .box
+    > .container
+    > .social
+    > .platform
+    > .title
+    > .circle {
+    width: 50px;
+    height: 50px;
+  }
+
+  .contact-section
+    > .box
+    > .container
+    > .social
+    > .platform
+    > .title
+    > .circle
+    > img {
+    width: 24px;
+  }
+
+  .contact-section
+    > .box
+    > .container
+    > .social
+    > .platform
+    > .title
+    > .desc
+    > p {
+    font-size: 16px;
+  }
+
+  .contact-section
+    > .box
+    > .container
+    > .social
+    > .platform
+    > .title
+    > .desc
+    > span {
+    font-size: 12.5px;
+  }
+
+  .contact-section > .box > .container > .social > .platform > a {
+    margin-left: 62px;
+    font-size: 13.5px;
+  }
+
+  /* ---------------- FORM ---------------- */
+  .contact-section > .box > .container > .form {
+    width: 40%;
+    height: auto;
+    padding: 18px;
+  }
+
+  .contact-section > .box > .container > .form > .title > .right > p {
+    width: 100%;
+  }
+
+  /* ---------------- TEXT ---------------- */
+  .contact-section > .box > .container > .text {
+    width: 26%;
+    height: auto;
+    padding: 24px 20px;
+    border-radius: 28px 28px 90px 28px;
+  }
+
+  .contact-section > .box > .container > .text > h1 {
+    font-size: 40px;
+  }
+
+  .contact-section > .box > .container > .text > h2 {
+    font-size: 24px;
+    line-height: 32px;
+    transform: none;
+  }
+
+  .contact-section > .box > .container > .text > p {
+    width: 100%;
+    font-size: 13.5px;
+    transform: none;
+  }
+
+  .contact-section > .box > .container > .text > .line {
+    margin: 24px 0;
+  }
+
+  .contact-section > .box > .container > .text > .item-container {
+    flex-wrap: wrap;
+    gap: 18px;
+  }
+}
+
+@media (max-width: 1100px) {
+  /*
+    Below this, three side-by-side columns (even resized) no longer
+    leave enough room for the form fields and platform cards, so they
+    stack instead — and since a stacked contact page is taller than
+    one viewport, this is also where scrolling is introduced, as a
+    single scrollbar on .contact-section itself (not nested in .box).
+  */
+  .contact-section {
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .contact-section > .box {
+    height: auto;
+    min-height: calc(100vh - 32px);
+  }
+
+  .contact-section > .box > .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .contact-section > .box > .container > .social,
+  .contact-section > .box > .container > .form,
+  .contact-section > .box > .container > .text {
+    width: 100%;
+    max-width: 640px;
+  }
+
+  .contact-section > .box > .container > .text {
+    border-radius: 28px 28px 70px 28px;
+  }
+}
+
+@media (max-width: 640px) {
+  .contact-section {
+    padding: 10px;
+  }
+
+  .contact-section > .box {
+    border-radius: 22px;
+  }
+
+  .contact-section > .box > .container {
+    padding: 16px 10px;
+    gap: 16px;
+  }
+
+  /* ---------------- SOCIAL ---------------- */
+  .contact-section .social-top h3 {
+    font-size: 19px;
+  }
+
+  .contact-section > .box > .container > .social > .platform {
+    min-height: unset;
+    padding: 14px;
+  }
+
+  .contact-section
+    > .box
+    > .container
+    > .social
+    > .platform
+    > .title
+    > .circle {
+    width: 44px;
+    height: 44px;
+  }
+
+  .contact-section
+    > .box
+    > .container
+    > .social
+    > .platform
+    > .title
+    > .circle
+    > img {
+    width: 20px;
+  }
+
+  .contact-section > .box > .container > .social > .platform > a {
+    margin-left: 56px;
+    font-size: 13px;
+  }
+
+  .contact-section > .box > .container > .social > .platform > button {
+    width: 38px;
+    height: 38px;
+  }
+
+  /* ---------------- FORM ---------------- */
+  .contact-section > .box > .container > .form {
+    padding: 14px;
+    border-radius: 22px;
+  }
+
+  .contact-section > .box > .container > .form > .title > .left > .circle {
+    width: 44px;
+    height: 44px;
+  }
+
+  .contact-section > .box > .container > .form > .title > .right > h2 {
+    font-size: 18px;
+  }
+
+  .contact-section > .box > .container > .form > .title > .right > p {
+    font-size: 12.5px;
+  }
+
+  .contact-section
+    > .box
+    > .container
+    > .form
+    > form
+    > .upload-box
+    > .drop-area {
+    padding: 0 18px;
+    gap: 12px;
+  }
+
+  .contact-section
+    > .box
+    > .container
+    > .form
+    > form
+    > .upload-box
+    > .drop-area
+    > .box {
+    width: 36px;
+    height: 36px;
+  }
+
+  .contact-section
+    > .box
+    > .container
+    > .form
+    > form
+    > .upload-box
+    > .drop-area
+    > .text {
+    font-size: 12px;
+  }
+
+  .contact-section .preview-left p {
+    max-width: 150px;
+  }
+
+  /* ---------------- TEXT ---------------- */
+  .contact-section > .box > .container > .text {
+    padding: 20px 18px;
+    border-radius: 22px 22px 50px 22px;
+  }
+
+  .contact-section > .box > .container > .text > h1 {
+    font-size: 30px;
+  }
+
+  .contact-section > .box > .container > .text > h2 {
+    font-size: 19px;
+    line-height: 26px;
+  }
+
+  .contact-section > .box > .container > .text > p {
+    font-size: 12.5px;
+  }
+
+  .contact-section > .box > .container > .text > .line {
+    margin: 18px 0;
+  }
+
+  .contact-section > .box > .container > .text > .item-container {
+    justify-content: flex-start;
+    gap: 20px 16px;
+  }
+
+  .contact-section > .box > .container > .text > .item-container > .item {
+    width: calc(50% - 8px);
+  }
+
+  /* ---------------- CV MODAL ---------------- */
+  .cv-modal {
+    width: 90%;
+    max-width: 420px;
+    padding: 24px;
+  }
+
+  /* ---------------- TOAST ---------------- */
+  .toast {
+    right: 14px;
+    bottom: 14px;
+    left: 14px;
+    padding: 13px 16px;
+  }
+}

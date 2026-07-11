@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useLayoutEffect } from "react";
 import Navbar from "./Navbar";
 import "./Styles/Projects.css";
 import FinoraIMG from "../assets/Images/Finora.webp";
@@ -66,8 +66,44 @@ const Projects = ({
   ];
 
   const projects = [...data, ...data, ...data];
-  const cardWidth = 584;
   const totalOriginal = data.length;
+
+  // Card width used to be a hardcoded 584 (560px card + 24px gap), which
+  // only matches the desktop CSS. It's now measured from the actual
+  // rendered DOM so the slider stays aligned at any card size/breakpoint.
+  const [cardWidth, setCardWidth] = useState(584);
+
+  const measureCardWidth = () => {
+    const track = trackRef.current;
+    if (!track) return;
+    const firstCard = track.children[0];
+    if (!firstCard) return;
+    const width = firstCard.getBoundingClientRect().width;
+    const styles = window.getComputedStyle(track);
+    const gap = parseFloat(styles.columnGap || styles.gap) || 0;
+    const measured = width + gap;
+    if (measured > 0) setCardWidth(measured);
+  };
+
+  useLayoutEffect(() => {
+    measureCardWidth();
+
+    let resizeTimer;
+    const handleResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        // Snap instantly to the new position instead of animating the jump
+        setIsTransitioning(false);
+        measureCardWidth();
+      }, 120);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      clearTimeout(resizeTimer);
+    };
+  }, []);
 
   useEffect(() => {
     const track = trackRef.current;
@@ -82,7 +118,7 @@ const Projects = ({
         setIndex(totalOriginal);
       }, 600);
     }
-  }, [index, isTransitioning]);
+  }, [index, isTransitioning, cardWidth]);
 
   useEffect(() => {
     if (!isTransitioning) {

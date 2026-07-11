@@ -761,3 +761,311 @@
   transform: translateY(0);
   transition: all 0.6s ease 0.7s;
 }
+
+/* ============================================================ */
+/* =============  RESPONSIVE / MOBILE REFLOW  ================== */
+/* ==  Desktop rules above are completely untouched.            == */
+/* ==  Three tiers below: a "compact row" tier that keeps        == */
+/* ==  left-box/right-box side-by-side as long as there's room   == */
+/* ==  (cards reflow via an auto-fit grid instead of a fixed     == */
+/* ==  30% width, so they can't get squeezed/deformed), a        == */
+/* ==  "stacked" tier once the row genuinely runs out of room,   == */
+/* ==  and a final phone fine-tuning tier.                       == */
+/* ============================================================ */
+
+@media (max-width: 1900px) {
+  /*
+    The fixed 30%-wide, 3-per-row card grid needs ~250px per card
+    (58px icon + title text + padding) to avoid the icon and title
+    colliding — only reliable above ~1900px viewport width. Below that,
+    switching the grid to auto-fit lets the cards reflow to 2 or 1 per
+    row entirely on their own, based on the actual available space, so
+    left-box and right-box can stay side-by-side much longer without
+    anything getting cramped or deformed.
+  */
+  .about-section {
+    height: auto;
+    min-height: 100vh;
+    padding: 16px;
+  }
+
+  .about-section > .box {
+    /* No fixed height / scroll here — this tier keeps left-box and
+       right-box side-by-side with the auto-fit card grid, which stays
+       compact enough to fit naturally. Scrolling is only introduced
+       at the tablet breakpoint below, and it lives on .about-section
+       itself, not on this box. */
+    height: auto;
+  }
+
+  .about-section > .box > .content {
+    height: auto;
+    align-items: stretch;
+    padding: 26px;
+    gap: 20px;
+  }
+
+  /* ---------------- LEFT BOX ---------------- */
+  .about-section > .box > .content > .left-box {
+    height: auto;
+    padding: 28px;
+    border-radius: 30px 30px 30px 110px;
+  }
+
+  .about-section > .box > .content > .left-box > .title > h2 {
+    font-size: 32px;
+  }
+
+  .about-section > .box > .content > .left-box > .title > p {
+    width: 100%;
+    font-size: 15px;
+    line-height: 26px;
+  }
+
+  /* auto-fit: as many ~170px+ columns as currently fit — 3, then 2,
+     then 1 — with no card ever getting narrower than that minimum. */
+  .about-section > .box > .content > .left-box > .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 16px;
+  }
+
+  .about-section > .box > .content > .left-box > .cards > .card {
+    width: 100%;
+    min-height: 190px;
+    padding: 20px;
+  }
+
+  .about-section
+    > .box
+    > .content
+    > .left-box
+    > .cards
+    > .card
+    > .title
+    > .circle {
+    width: 50px;
+    height: 50px;
+  }
+
+  /* If there's not enough room for icon + title side-by-side, let the
+     title drop to its own line below the icon instead of squeezing
+     and breaking mid-word. */
+  .about-section > .box > .content > .left-box > .cards > .card > .title {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+
+  .about-section > .box > .content > .left-box > .cards > .card > .title > h3 {
+    font-size: 19px;
+    min-width: 140px;
+    flex: 1 1 140px;
+  }
+
+  .about-section > .box > .content > .left-box > .cards > .card > p {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  /* ---------------- RIGHT BOX ---------------- */
+  .about-section > .box > .content > .right-box {
+    height: auto;
+    padding: 24px;
+    border-radius: 30px 30px 110px 30px;
+  }
+
+  .right-box > h2 {
+    font-size: 30px;
+    margin-bottom: 18px;
+  }
+
+  .right-box > p {
+    font-size: 14.5px;
+    line-height: 25px;
+    margin-bottom: 22px;
+  }
+
+  .right-box .mindset-card {
+    padding: 18px;
+    margin-bottom: 24px;
+  }
+
+  .right-box .mindset-card .icon {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 920px) {
+  /*
+    Below this, .right-box (35% of the box) drops under ~280px — no
+    longer enough room for its icon + text without cramping — so this
+    is where left-box/right-box finally stack instead of staying in a
+    row. Stacking two full panels is taller than one viewport, so this
+    is also where scrolling is introduced — as a single scrollbar on
+    .about-section itself (not a nested one on .box), since that's the
+    outermost element actually covering the screen.
+  */
+  .about-section {
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .about-section > .box {
+    height: auto;
+    min-height: calc(100vh - 32px);
+  }
+
+  .about-section > .box > .content {
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .about-section > .box > .content > .left-box,
+  .about-section > .box > .content > .right-box {
+    width: 100%;
+    max-width: 720px;
+    height: auto;
+  }
+
+  .about-section > .box > .content > .left-box {
+    border-radius: 28px 28px 28px 70px;
+  }
+
+  .about-section > .box > .content > .right-box {
+    border-radius: 28px 28px 70px 28px;
+  }
+}
+
+@media (max-width: 640px) {
+  .about-section {
+    padding: 10px;
+  }
+
+  .about-section > .box {
+    border-radius: 22px;
+  }
+
+  .about-section > .box > .content {
+    padding: 20px 16px;
+    gap: 20px;
+  }
+
+  /* ---------------- LEFT BOX ---------------- */
+  .about-section > .box > .content > .left-box {
+    border-radius: 22px 22px 22px 50px;
+    padding: 20px;
+  }
+
+  .about-section > .box > .content > .left-box > .title {
+    margin-bottom: 16px;
+  }
+
+  .about-section > .box > .content > .left-box > .title > h2 {
+    font-size: 22px;
+    letter-spacing: -0.5px;
+  }
+
+  .about-section > .box > .content > .left-box > .title > p {
+    font-size: 13.5px;
+    line-height: 22px;
+  }
+
+  .about-section > .box > .content > .left-box > .cards {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .about-section > .box > .content > .left-box > .cards > .card {
+    min-height: unset;
+    padding: 18px;
+  }
+
+  .about-section
+    > .box
+    > .content
+    > .left-box
+    > .cards
+    > .card
+    > .title
+    > .circle {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+  }
+
+  .about-section > .box > .content > .left-box > .cards > .card > .title {
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .about-section > .box > .content > .left-box > .cards > .card > .title > h3 {
+    font-size: 18px;
+  }
+
+  .about-section > .box > .content > .left-box > .cards > .card > p {
+    font-size: 13.5px;
+    line-height: 21px;
+    max-width: 100%;
+  }
+
+  /* ---------------- RIGHT BOX ---------------- */
+  .about-section > .box > .content > .right-box {
+    border-radius: 22px 22px 50px 22px;
+    padding: 18px;
+  }
+
+  .right-box > span {
+    font-size: 11px;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+  }
+
+  .right-box > h2 {
+    font-size: 22px;
+    margin-bottom: 14px;
+  }
+
+  .right-box > p {
+    font-size: 13.5px;
+    line-height: 22px;
+    margin-bottom: 18px;
+  }
+
+  .right-box .mindset-card {
+    width: 96%;
+    padding: 16px;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+
+  .right-box .mindset-card .icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+  }
+
+  .right-box .mindset-card h3 {
+    font-size: 17px;
+  }
+
+  .right-box .mindset-card p {
+    font-size: 13px;
+    line-height: 21px;
+  }
+
+  .right-box .journey {
+    gap: 18px;
+  }
+
+  .right-box .journey h4 {
+    font-size: 16px;
+  }
+
+  .right-box .journey p {
+    font-size: 13px;
+    line-height: 20px;
+  }
+}

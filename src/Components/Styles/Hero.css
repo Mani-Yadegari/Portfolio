@@ -740,3 +740,412 @@
     transform: translateY(0) scale(1);
   }
 }
+
+@media (max-width: 1820px) {
+  .hero-section {
+    padding: 16px;
+  }
+}
+@media (max-width: 1665px) {
+  .hero-section > .box > .components > .left {
+    left: 0;
+  }
+}
+
+/* ===================================================================== */
+/* ============  RESPONSIVE (below 1665px only) — everything  ========== */
+/* ============  above this line / above 1665px is untouched  ========== */
+/* ===================================================================== */
+
+/*
+  The two panels (.left / .right) are art assets with a FIXED aspect
+  ratio (940x680 / 900x789). Rescaling them by changing width but not
+  height (or vice versa) distorts the artwork and lets text/buttons
+  spill outside the drawn shape. So below 1665px we stop trying to
+  resize the art and instead swap both panels to plain flex items with
+  a simple glass-card look — no fixed aspect ratio to fight with.
+  flex-wrap (instead of a second hard-coded "now stack" breakpoint)
+  lets the browser decide when to wrap, so there's no gap between
+  "still side by side" and "now stacked" where things could clip.
+*/
+@media (max-width: 1665px) {
+  .hero-section {
+    height: auto;
+    min-height: 100vh;
+    padding: 16px;
+    overflow-y: auto;
+  }
+
+  .hero-section > .box {
+    height: auto;
+    min-height: calc(100vh - 32px);
+  }
+
+  .hero-section > .box > .components {
+    position: static;
+    display: flex;
+    /* flex-direction: row; */
+    flex-direction: column-reverse;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    padding: 36px 24px 60px;
+  }
+
+  /* Shared glass-card look for both panels. Same exact recipe used on
+     .cv-modal elsewhere in this file (opaque navy gradient + strong
+     blur/saturate + inset highlight + outer glow) — reusing it here
+     instead of inventing a second, lighter glass style is what makes
+     both panels actually read as the same material. Sizing lives here
+     too (not split between .left/.right) so both are exactly the same
+     width whether they're side by side or stacked on their own row. */
+  .hero-section > .box > .components > .left,
+  .hero-section > .box > .components > .right {
+    box-sizing: border-box;
+    /* flex: 1 1 480px; */
+    width: 100%;
+    max-width: 900px;
+    height: auto;
+    padding: 40px;
+
+    /* Glass background */
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.14),
+      rgba(255, 255, 255, 0.04)
+    );
+
+    border: 1px solid rgba(255, 255, 255, 0.18);
+
+    border-radius: 28px;
+
+    /* Depth */
+    box-shadow:
+      inset 0 1px 1px rgba(255, 255, 255, 0.35),
+      inset 0 -20px 40px rgba(0, 0, 0, 0.15),
+      0 25px 80px rgba(0, 0, 0, 0.45),
+      0 0 50px rgba(58, 127, 231, 0.18);
+
+    /* Real glass */
+    backdrop-filter: blur(35px) saturate(180%);
+    -webkit-backdrop-filter: blur(35px) saturate(180%);
+
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-section > .box > .components > .left::before,
+  .hero-section > .box > .components > .right::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: radial-gradient(
+      circle at top left,
+      rgba(41, 41, 41, 0.25),
+      transparent 35%
+    );
+
+    pointer-events: none;
+  }
+  .hero-section > .box > .components > .right {
+    background-image: none;
+  }
+  .hero-section > .box > .components > .left {
+    position: static;
+    background-image: none;
+    transform: none !important;
+  }
+
+  .hero-section.exit > .box > .components > .left {
+    transform: translateY(-15px) !important;
+  }
+
+  .hero-section > .box > .components > .left > h1 {
+    font-size: 48px !important;
+    letter-spacing: 4px;
+    background: linear-gradient(180deg, #0663eeb6, #022246e1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-section > .box > .components > .left > h2,
+  .hero-section > .box > .components > .left > p {
+    transform: none;
+  }
+
+  .hero-section > .box > .components > .left > h2 {
+    font-size: 26px;
+    line-height: 34px;
+  }
+
+  .hero-section > .box > .components > .left > .description {
+    width: 100%;
+  }
+
+  /* .info used to bleed past the card edge: it's `width: fit-content`
+     with `white-space: nowrap` children, so once the row (dot + 3
+     labels + separators) is wider than the card, it just kept growing
+     sideways instead of wrapping. Force it to wrap and stay inside. */
+  .hero-section .info {
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    row-gap: 8px;
+  }
+
+  .hero-section .info p {
+    white-space: normal;
+  }
+
+  .hero-section > .box > .components > .right {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: none !important;
+  }
+
+  .hero-section.exit > .box > .components > .right {
+    transform: translateY(15px) !important;
+  }
+
+  .hero-section > .box > .components > .right > .animation {
+    position: static;
+    width: 280px;
+    height: 280px;
+    margin-bottom: 10px;
+  }
+
+  .hero-section > .box > .components > .right > .text {
+    position: static;
+    padding: 0;
+    max-width: 100%;
+  }
+
+  .hero-section > .box > .components > .right > .text > h2 {
+    width: 100%;
+  }
+
+  .cv-modal {
+    max-width: calc(100vw - 40px);
+  }
+}
+
+/* ---- Tablet portrait ---- */
+@media (max-width: 760px) {
+  .hero-section > .box > .components > .left {
+    padding: 30px 24px;
+  }
+
+  .hero-section > .box > .components > .left > h1 {
+    font-size: 38px;
+    letter-spacing: 2px;
+  }
+
+  .hero-section > .box > .components > .left > h2 {
+    font-size: 21px;
+    line-height: 28px;
+  }
+
+  .hero-section > .box > .components > .left > p {
+    font-size: 15px;
+    line-height: 24px;
+  }
+
+  .hero-section > .box > .components > .left > .icons-container {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .hero-section > .box > .components > .left > .icons-container > .icon:hover {
+    width: 52px;
+  }
+
+  .hero-section
+    > .box
+    > .components
+    > .left
+    > .icons-container
+    > .icon:hover
+    > span {
+    max-width: 0;
+    opacity: 0;
+  }
+
+  .hero-section .info {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .hero-section .info p {
+    white-space: normal;
+  }
+
+  .hero-section > .box > .components > .left > .button-container {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .hero-section > .box > .components > .right > .text > h1 {
+    font-size: 32px;
+  }
+
+  .hero-section > .box > .components > .right > .text > .button-container {
+    margin-top: 20px;
+  }
+  .hero-section
+    > .box
+    > .components
+    > .right
+    > .text
+    > .button-container
+    > button {
+    padding: 22px 10px;
+    font-size: 16px;
+  }
+}
+
+/* ---- Mobile ---- */
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 10px;
+  }
+
+  .hero-section > .box {
+    border-radius: 20px;
+  }
+
+  .hero-section > .box > .components {
+    gap: 28px;
+    padding: 16px 0 40px;
+    justify-content: center;
+    align-items: center;
+  }
+  .hero-section > .box > .components > div {
+    width: 96% !important;
+  }
+  .hero-section > .box > .components > .left {
+    padding: 24px 18px;
+    border-radius: 18px;
+  }
+
+  .hero-section > .box > .components > .left > h1 {
+    font-size: 30px;
+    letter-spacing: 1px;
+  }
+
+  .hero-section > .box > .components > .left > h2 {
+    font-size: 18px;
+    line-height: 25px;
+  }
+
+  .hero-section > .box > .components > .left > p {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .hero-section > .box > .components > .left > .icons-container {
+    gap: 14px;
+    padding: 12px 0;
+  }
+
+  .hero-section > .box > .components > .left > .icons-container > .icon {
+    width: 44px;
+    height: 44px;
+    padding: 8px 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-section > .box > .components > .left > .icons-container > .icon > img {
+    width: 30px;
+  }
+  .hero-section > .box > .components > .left > .icons-container > .icon > p,
+  .hero-section > .box > .components > .left > .icons-container > .icon > span,
+  .hero-section
+    > .box
+    > .components
+    > .left
+    > .icons-container
+    > .icon
+    > .line {
+    display: none;
+  }
+  .hero-section .info {
+    gap: 10px;
+    padding: 10px 14px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-section .info p {
+    font-size: 12px;
+  }
+
+  .hero-section > .box > .components > .left > .button-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    padding: 18px 0;
+  }
+
+  .hero-section > .box > .components > .left > .button-container > button {
+    width: 100%;
+  }
+
+  .hero-section > .box > .components > .left > .description {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .hero-section > .box > .components > .right > .animation {
+    width: 200px;
+    height: 200px;
+  }
+
+  .hero-section > .box > .components > .right > .text > h1 {
+    font-size: 26px;
+  }
+
+  .hero-section > .box > .components > .right > .text > h2 {
+    font-size: 14px;
+  }
+
+  .hero-section > .box > .components > .right > .text > .button-container {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-section
+    > .box
+    > .components
+    > .right
+    > .text
+    > .button-container
+    > button {
+    width: 100%;
+  }
+
+  .cv-modal {
+    width: 100%;
+    padding: 24px;
+    border-radius: 22px;
+  }
+
+  .cv-modal h2 {
+    font-size: 24px;
+  }
+  ص .cv-buttons {
+    flex-direction: column;
+  }
+
+  .cv-buttons button {
+    height: 70px;
+    flex-direction: row;
+  }
+}

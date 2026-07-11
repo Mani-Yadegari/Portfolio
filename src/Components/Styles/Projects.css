@@ -512,3 +512,209 @@
   line-height: 1.7;
   text-align: center;
 }
+
+/* ============================================================ */
+/* =============  RESPONSIVE / MOBILE REFLOW  ================== */
+/* ==  Desktop rules above are completely untouched.            == */
+/* ==  Everything below only applies at <=1024px and <=640px.   == */
+/* ==  Card width is measured dynamically in Projects.jsx, so   == */
+/* ==  changing width/gap here is safe and stays in sync with   == */
+/* ==  the carousel's slide math automatically.                 == */
+/* ============================================================ */
+@media (max-width: 1200px) {
+  .title-block > p {
+    font-size: 13px;
+  }
+  .title-block h1 {
+    font-size: 34px;
+  }
+  .view-all {
+    font-size: 15px;
+  }
+}
+@media (max-width: 1024px) {
+  .projects-section {
+    height: auto;
+    min-height: 100vh;
+    padding: 16px;
+    padding-bottom: 16px;
+  }
+
+  .projects-section > .box {
+    height: auto;
+    min-height: calc(100vh - 32px);
+  }
+
+  .projects-section > .box > .content {
+    padding: 26px 28px 18px;
+    justify-content: center;
+    gap: 26px;
+  }
+
+  /* ---------------- HEADER ---------------- */
+  .section-header {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    row-gap: 16px;
+    margin-bottom: 0;
+  }
+
+  /* Title first, controls below it */
+  .title-block {
+    order: -1;
+    width: 100%;
+  }
+
+  .title-block h1 {
+    font-size: 32px;
+  }
+
+  .title-block > p {
+    font-size: 14px;
+  }
+
+  .title-underline {
+    width: 120px;
+    margin: 12px 0;
+  }
+
+  /* ---------------- CARDS ---------------- */
+  /* aspect-ratio gives every card the same, self-contained height based
+     purely on its own width — it no longer depends on .viewport/.track
+     having a definite height, so it can't drift per-card based on each
+     project's own content length. */
+  .project-wrapper {
+    width: 440px;
+    aspect-ratio: 4 / 5;
+    height: auto;
+  }
+
+  .track {
+    gap: 20px;
+    height: auto;
+  }
+
+  .viewport {
+    flex: none;
+    height: auto;
+    padding: 6px 0;
+  }
+
+  .footer-note {
+    font-size: 13px;
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .projects-section {
+    padding: 10px;
+  }
+
+  .projects-section > .box {
+    border-radius: 22px;
+  }
+
+  .projects-section > .box > .content {
+    padding: 18px 16px 14px;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  /* ---------------- HEADER ---------------- */
+  .section-header {
+    gap: 12px;
+    margin-bottom: 0;
+  }
+
+  .title-block h1 {
+    font-size: 31px;
+  }
+
+  .title-block > p {
+    font-size: 12.5px;
+  }
+
+  .title-underline {
+    width: 90px;
+    margin: 10px 0;
+  }
+
+  .slide-buttons button {
+    width: 38px;
+    height: 38px;
+  }
+
+  .view-all {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  /* ---------------- CARDS ---------------- */
+  .project-wrapper {
+    width: min(84vw, 360px);
+    aspect-ratio: 3 / 4;
+    height: auto;
+  }
+
+  .track {
+    gap: 14px;
+    height: auto;
+  }
+
+  .viewport {
+    height: auto;
+    padding: 6px 0;
+  }
+
+  /* Give the text area a bit more room relative to the image on the
+     narrower, taller mobile card */
+  .project > img {
+    height: 52%;
+  }
+
+  .overlay {
+    padding: 14px 16px 16px;
+  }
+
+  .overlay > .top-container > .left > h3 {
+    font-size: 17px;
+  }
+
+  .overlay > .top-container > .left > p {
+    font-size: 12px;
+  }
+
+  .overlay > .top-container > a {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  /* Clamp to 3 lines so a long description can never push a card taller
+     than the others or overflow the fixed aspect-ratio box */
+  .overlay > .description {
+    font-size: 12.5px;
+    line-height: 1.55;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .overlay > .label > div {
+    font-size: 11px;
+    padding: 4px 10px;
+  }
+
+  .project-status {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+
+  .footer-note {
+    font-size: 12px;
+    line-height: 1.6;
+    padding-top: 0;
+  }
+}
