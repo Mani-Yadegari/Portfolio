@@ -1853,9 +1853,9 @@
 
   /* ---------------- CV MODAL ---------------- */
   .cv-modal {
-    width: 90%;
+    width: 85%;
     max-width: 420px;
-    padding: 24px;
+    padding: 22px;
   }
 
   /* ---------------- TOAST ---------------- */

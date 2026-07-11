@@ -31,6 +31,7 @@ function Contact({
   onNavigateToAbout,
   onNavigateToContact,
 }) {
+  const sectionRef = useRef(null);
   const [loaded, setLoaded] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -305,6 +306,25 @@ function Contact({
     }
   };
   const [showCVModal, setShowCVModal] = useState(false);
+
+  // The modal is pinned to the top of .contact-section (position:absolute,
+  // inset:0). On breakpoints where the section itself scrolls (stacked/
+  // mobile), opening the modal while scrolled down would leave it out of
+  // view, so scroll back to the top first.
+  const openCVModal = () => {
+    sectionRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+    setShowCVModal(true);
+  };
+
+  // Lock the section's own scroll while the modal is open — otherwise
+  // the background content behind the overlay can still be scrolled.
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    el.style.overflowY = showCVModal ? "hidden" : "";
+  }, [showCVModal]);
+
   const downloadResume = (file, filename) => {
     const link = document.createElement("a");
 
@@ -320,6 +340,7 @@ function Contact({
 
   return (
     <section
+      ref={sectionRef}
       className={`contact-section ${show ? "show" : ""} ${exit ? "exit" : ""} ${loaded ? "loaded" : ""} ${!show && !exit ? "hidden" : ""}`}
     >
       <div className="box">
@@ -430,13 +451,13 @@ function Contact({
                 href="#"
                 onClick={(e) => {
                   e.preventDefault();
-                  setShowCVModal(true);
+                  openCVModal();
                 }}
               >
                 Download PDF
               </a>
 
-              <button onClick={() => setShowCVModal(true)}>
+              <button onClick={openCVModal}>
                 <ArrowRight size={24} />
               </button>
             </div>

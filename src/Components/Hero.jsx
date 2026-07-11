@@ -22,6 +22,7 @@ const Hero = ({
   onNavigateToAbout,
   onNavigateToContact,
 }) => {
+  const sectionRef = useRef(null);
   const animationDiv = useRef(null);
   const lottieInstance = useRef(null);
   const [loaded, setLoaded] = useState(false);
@@ -60,6 +61,25 @@ const Hero = ({
 
   // Download Resume  Start
   const [showCVModal, setShowCVModal] = useState(false);
+
+  // The modal is pinned to the top of .hero-section (position:absolute,
+  // inset:0). On the breakpoints where the section itself scrolls
+  // (stacked/mobile), opening the modal while scrolled down would leave
+  // it out of view, so scroll back to the top first.
+  const openCVModal = () => {
+    sectionRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+    setShowCVModal(true);
+  };
+
+  // Lock the section's own scroll while the modal is open — otherwise
+  // the background content behind the overlay can still be scrolled.
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    el.style.overflowY = showCVModal ? "hidden" : "";
+  }, [showCVModal]);
+
   const downloadResume = (file, filename) => {
     const link = document.createElement("a");
     link.href = file;
@@ -74,6 +94,7 @@ const Hero = ({
 
   return (
     <section
+      ref={sectionRef}
       className={`hero-section
           ${loaded ? "loaded" : ""}
           ${show && !exit ? "active" : ""}
@@ -155,7 +176,7 @@ const Hero = ({
                 <img src={GitHubLogo} alt="GitHub Logo" />
                 <p>GitHub</p>
               </button>
-              <button onClick={() => setShowCVModal(true)}>
+              <button onClick={openCVModal}>
                 <img src={DownloadIcon} alt="Download Icon" />
                 <p>Download CV</p>
               </button>
