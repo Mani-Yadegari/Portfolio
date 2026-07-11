@@ -16,6 +16,7 @@
   opacity: 0;
   pointer-events: none;
   transition: opacity 1.2s ease-in-out;
+  overflow: auto;
 }
 
 .projects-section.show {
@@ -415,7 +416,7 @@
   font-size: 13.5px;
   line-height: 1.65;
   letter-spacing: 0.2px;
-  flex: 1;
+  /* flex: 1; */
   margin: 10px 0 0;
 }
 
@@ -656,6 +657,10 @@
     width: min(84vw, 360px);
     aspect-ratio: 3 / 4;
     height: auto;
+    box-shadow: none;
+  }
+  .project-wrapper:hover {
+    box-shadow: none;
   }
 
   .track {
@@ -664,14 +669,22 @@
   }
 
   .viewport {
-    height: auto;
+    height: 400px;
     padding: 6px 0;
+    overflow: visible;
   }
 
   /* Give the text area a bit more room relative to the image on the
      narrower, taller mobile card */
+  .project {
+    height: 400px;
+    box-shadow: none;
+  }
+  .project::before {
+    box-shadow: none;
+  }
   .project > img {
-    height: 52%;
+    height: 200px;
   }
 
   .overlay {
@@ -695,13 +708,16 @@
      than the others or overflow the fixed aspect-ratio box */
   .overlay > .description {
     font-size: 12.5px;
-    line-height: 1.55;
+    /* line-height: 1.55; */
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    margin: 0;
   }
-
+  .overlay > .label {
+    margin: 0;
+  }
   .overlay > .label > div {
     font-size: 11px;
     padding: 4px 10px;
@@ -710,6 +726,10 @@
   .project-status {
     font-size: 12px;
     padding: 6px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
 
   .footer-note {
