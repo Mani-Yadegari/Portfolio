@@ -1034,7 +1034,7 @@
   }
 
   .hero-section > .box > .components > .left > h1 {
-    font-size: 30px;
+    font-size: 36px !important;
     letter-spacing: 1px;
   }
 
@@ -1147,5 +1147,10 @@
   .cv-buttons button {
     height: 70px;
     flex-direction: row;
+  }
+}
+@media (max-width: 405px) {
+  .hero-section > .box > .components > .left > h1 {
+    font-size: 30px;
   }
 }

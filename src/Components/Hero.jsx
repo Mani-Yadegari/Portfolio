@@ -66,8 +66,16 @@ const Hero = ({
   // inset:0). On the breakpoints where the section itself scrolls
   // (stacked/mobile), opening the modal while scrolled down would leave
   // it out of view, so scroll back to the top first.
+  //
+  // Scroll is instant ("auto"), not smooth. The overflow-lock effect below
+  // fires as soon as showCVModal flips to true, and with an animated
+  // scroll that lock interrupts the scroll mid-flight (freezing it
+  // wherever it happened to be) — which is what caused the section to
+  // stay scrolled down on mobile while the modal appeared pinned at the
+  // top. An instant scroll completes synchronously before the lock
+  // effect runs, so there's no race.
   const openCVModal = () => {
-    sectionRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+    sectionRef.current?.scrollTo({ top: 0, behavior: "auto" });
     setShowCVModal(true);
   };
 
