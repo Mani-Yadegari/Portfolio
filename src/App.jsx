@@ -13,6 +13,19 @@ const MIN_LOADER_TIME = 1200; // حداقل زمان نمایش لودر (جلو
 const LOADER_EXIT_DURATION = 400; // باید با انیمیشن exit توی Loading.css هماهنگ باشه
 const MAX_WAIT = 8000; // اگه asset ای گیر کرد (مثلاً عکس خراب)، بعد این مدت به‌هرحال رد شو
 
+// اسم کلاس section به ازای هر صفحه - برای پیدا کردن container فعال و
+// چک کردن اینکه آیا اسکرول داخلیش به ته/سر رسیده یا نه.
+// اگه اسم کلاس Projects section چیز دیگه‌ایه، همینجا اصلاحش کن.
+const SECTION_CLASS = {
+  hero: "hero-section",
+  projects: "projects-section",
+  about: "about-section",
+  contact: "contact-section",
+};
+
+const SCROLL_EDGE_THRESHOLD = 2; // px تلورانس برای رسیدن به لبه اسکرول
+const TOUCH_SWIPE_THRESHOLD = 60; // px حداقل جابجایی انگشت برای شمردنش به عنوان سوایپ صفحه
+
 function App() {
   const [loading, setLoading] = useState(true);
   const [exitLoader, setExitLoader] = useState(false);
@@ -46,17 +59,48 @@ function App() {
     [loading, isAnimating, currentPage],
   );
 
+  // پیدا کردن المنت section ای که الان فعاله، تا وضعیت اسکرول داخلیش رو بخونیم
+  const getActiveSectionEl = useCallback(() => {
+    const cls = SECTION_CLASS[currentPage];
+    return cls ? document.querySelector(`.${cls}`) : null;
+  }, [currentPage]);
+
+  // آیا بخش فعال به لبه‌ی اسکرول داخلیش (بالا برای backward، پایین برای forward) رسیده؟
+  // اگه اصلاً اسکرول‌پذیر نباشه (مثل حالت دسکتاپ)، همیشه true برمی‌گردونه
+  // یعنی رفتار قبلی (عوض شدن فوری صفحه) حفظ میشه.
+  const isAtScrollBoundary = useCallback(
+    (dir) => {
+      const el = getActiveSectionEl();
+      if (!el) return true;
+
+      const isScrollable =
+        el.scrollHeight > el.clientHeight + SCROLL_EDGE_THRESHOLD;
+      if (!isScrollable) return true;
+
+      if (dir === "forward") {
+        return (
+          el.scrollTop + el.clientHeight >=
+          el.scrollHeight - SCROLL_EDGE_THRESHOLD
+        );
+      }
+      return el.scrollTop <= SCROLL_EDGE_THRESHOLD;
+    },
+    [getActiveSectionEl],
+  );
+
   useEffect(() => {
     const handleWheel = (e) => {
       if (loading || isAnimating) return;
       const idx = PAGE_ORDER.indexOf(currentPage);
-      if (e.deltaY > 50 && idx < PAGE_ORDER.length - 1)
-        navigate(PAGE_ORDER[idx + 1]);
-      else if (e.deltaY < -50 && idx > 0) navigate(PAGE_ORDER[idx - 1]);
+      if (e.deltaY > 50 && idx < PAGE_ORDER.length - 1) {
+        if (isAtScrollBoundary("forward")) navigate(PAGE_ORDER[idx + 1]);
+      } else if (e.deltaY < -50 && idx > 0) {
+        if (isAtScrollBoundary("backward")) navigate(PAGE_ORDER[idx - 1]);
+      }
     };
     window.addEventListener("wheel", handleWheel, { passive: true });
     return () => window.removeEventListener("wheel", handleWheel);
-  }, [currentPage, isAnimating, loading, navigate]);
+  }, [currentPage, isAnimating, loading, navigate, isAtScrollBoundary]);
 
   useEffect(() => {
     const handleKeyPress = (e) => {
@@ -70,6 +114,42 @@ function App() {
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
   }, [currentPage, isAnimating, loading, navigate]);
+
+  // ناوبری با سوایپ لمسی (موبایل). چون رویداد wheel روی گوشی فایر نمیشه،
+  // اینجا با touchstart/touchend فاصله‌ی عمودی انگشت رو می‌سنجیم.
+  // منطق مشابه handleWheel: فقط وقتی بخش فعال به لبه‌ی اسکرول داخلیش
+  // رسیده باشه، سوایپ باعث رفتن به صفحه بعد/قبل میشه؛ در غیر این صورت
+  // اسکرول عادیِ داخل بخش (native) اتفاق می‌افته و دست نمی‌خوریم بهش.
+  useEffect(() => {
+    let touchStartY = null;
+
+    const handleTouchStart = (e) => {
+      if (loading || isAnimating) return;
+      touchStartY = e.touches[0].clientY;
+    };
+
+    const handleTouchEnd = (e) => {
+      if (loading || isAnimating || touchStartY === null) return;
+      const touchEndY = e.changedTouches[0].clientY;
+      const deltaY = touchStartY - touchEndY; // مثبت = سوایپ به بالا = رفتن جلو
+      touchStartY = null;
+
+      const idx = PAGE_ORDER.indexOf(currentPage);
+
+      if (deltaY > TOUCH_SWIPE_THRESHOLD && idx < PAGE_ORDER.length - 1) {
+        if (isAtScrollBoundary("forward")) navigate(PAGE_ORDER[idx + 1]);
+      } else if (deltaY < -TOUCH_SWIPE_THRESHOLD && idx > 0) {
+        if (isAtScrollBoundary("backward")) navigate(PAGE_ORDER[idx - 1]);
+      }
+    };
+
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchend", handleTouchEnd, { passive: true });
+    return () => {
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, [currentPage, isAnimating, loading, navigate, isAtScrollBoundary]);
 
   // تنظیمات اولیه صفحه
   useEffect(() => {
