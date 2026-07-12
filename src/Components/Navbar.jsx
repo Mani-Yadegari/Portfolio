@@ -90,8 +90,12 @@ const Navbar = ({
           >
             About
           </p>
-
-          <p onClick={() => handleNavigate(onNavigateToContact)}>Contact</p>
+          <p
+            className={activePage === "contact" ? "active" : ""}
+            onClick={() => handleNavigate(onNavigateToContact)}
+          >
+            Contact
+          </p>
 
           <button onClick={() => handleNavigate(onNavigateToContact)}>
             Hire Me
