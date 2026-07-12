@@ -141,6 +141,8 @@ const Projects = ({
     setIsTransitioning(true);
     setIndex((p) => (p > totalOriginal ? p - 1 : totalOriginal * 2 - 1));
   };
+
+  // Mouse drag (desktop)
   const handleDown = (e) => {
     isDragging.current = true;
     startX.current = e.clientX;
@@ -149,6 +151,21 @@ const Projects = ({
   const handleUp = (e) => {
     if (!isDragging.current) return;
     const diff = e.clientX - startX.current;
+    if (diff > 60) prev();
+    if (diff < -60) next();
+    isDragging.current = false;
+    setIsPaused(false);
+  };
+
+  // Touch drag (mobile) — mirrors the mouse logic using touch coordinates
+  const handleTouchStart = (e) => {
+    isDragging.current = true;
+    startX.current = e.touches[0].clientX;
+    setIsPaused(true);
+  };
+  const handleTouchEnd = (e) => {
+    if (!isDragging.current) return;
+    const diff = e.changedTouches[0].clientX - startX.current;
     if (diff > 60) prev();
     if (diff < -60) next();
     isDragging.current = false;
@@ -201,6 +218,8 @@ const Projects = ({
             }}
             onMouseDown={handleDown}
             onMouseUp={handleUp}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
           >
             <div className="track" ref={trackRef}>
               {projects.map((item, i) => (
