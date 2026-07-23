@@ -34,8 +34,8 @@ const Hero = ({
       renderer: "svg",
       loop: true,
       autoplay: true,
-      path: "/Animation/animation.json",
-      assetsPath: "/Animation/images/",
+      path: `${import.meta.env.BASE_URL}Animation/animation.json`,
+      assetsPath: `${import.meta.env.BASE_URL}Animation/images/`,
       rendererSettings: { progressiveLoad: true, hideOnTransparent: true },
     });
     return () => lottieInstance.current?.destroy();
