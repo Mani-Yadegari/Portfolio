@@ -4,7 +4,7 @@ A modern and interactive personal portfolio built with **React** and **Vite** to
 
 ## 🌐 Live Demo
 
-🔗 https://maniydport.netlify.app
+🔗 https://mani-yadegari.github.io/Portfolio
 
 ## ✨ Features
 
