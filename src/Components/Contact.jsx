@@ -305,45 +305,16 @@ function Contact({
       setIsSending(false);
     }
   };
-  const [showCVModal, setShowCVModal] = useState(false);
 
-  // The modal is pinned to the top of .contact-section (position:absolute,
-  // inset:0). On breakpoints where the section itself scrolls (stacked/
-  // mobile), opening the modal while scrolled down would leave it out of
-  // view, so scroll back to the top first.
-  //
-  // Scroll is instant ("auto"), not smooth. The overflow-lock effect below
-  // fires as soon as showCVModal flips to true, and with an animated
-  // scroll that lock interrupts the scroll mid-flight (freezing it
-  // wherever it happened to be) — which is what caused the section to
-  // stay scrolled down on mobile while the modal appeared pinned at the
-  // top. An instant scroll completes synchronously before the lock
-  // effect runs, so there's no race.
-  const openCVModal = () => {
-    sectionRef.current?.scrollTo({ top: 0, behavior: "auto" });
-    setShowCVModal(true);
-  };
-
-  // Lock the section's own scroll while the modal is open — otherwise
-  // the background content behind the overlay can still be scrolled.
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-
-    el.style.overflowY = showCVModal ? "hidden" : "";
-  }, [showCVModal]);
-
-  const downloadResume = (file, filename) => {
+  const downloadResume = () => {
     const link = document.createElement("a");
 
-    link.href = file;
-    link.download = filename;
+    link.href = ResumeEN;
+    link.download = "Mani-Yadegari-Resume-EN.pdf";
 
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-
-    setShowCVModal(false);
   };
 
   return (
@@ -459,13 +430,13 @@ function Contact({
                 href="#"
                 onClick={(e) => {
                   e.preventDefault();
-                  openCVModal();
+                  downloadResume();
                 }}
               >
                 Download PDF
               </a>
 
-              <button onClick={openCVModal}>
+              <button onClick={downloadResume}>
                 <ArrowRight size={24} />
               </button>
             </div>
@@ -675,40 +646,6 @@ function Contact({
           </div>
         </div>
       </div>
-      {showCVModal && (
-        <div className="cv-modal-overlay" onClick={() => setShowCVModal(false)}>
-          <div className="cv-modal" onClick={(e) => e.stopPropagation()}>
-            <h2>Select Resume Language</h2>
-
-            <p>Choose which version of my resume you'd like to download.</p>
-
-            <div className="cv-buttons">
-              <button
-                onClick={() =>
-                  downloadResume(ResumeEN, "Mani-Yadegari-Resume-EN.pdf")
-                }
-              >
-                <span>English Resume</span>
-              </button>
-
-              <button
-                onClick={() =>
-                  downloadResume(ResumeFA, "Mani-Yadegari-Resume-FA.pdf")
-                }
-              >
-                <span>Persian Resume</span>
-              </button>
-            </div>
-
-            <button
-              className="close-modal"
-              onClick={() => setShowCVModal(false)}
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      )}
       {toast.show && (
         <div className={`toast ${toast.type}`}>
           {toast.type === "success" ? "✓" : "✕"}
