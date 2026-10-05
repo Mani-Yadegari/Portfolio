@@ -61,7 +61,7 @@ GitHub:
 https://github.com/Mani-Yadegari
 
 Portfolio:
-https://maniydport.netlify.app
+https://mani-yadegari.github.io/Portfolio
 
 Email:
 Maniyadegari8478@gmail.com
