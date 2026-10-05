@@ -10,7 +10,7 @@ A modern and interactive personal portfolio built with **React** and **Vite** to
 
 - Modern UI/UX
 - Smooth page transitions & animations
-- Responsive Design (Coming Soon)
+- Responsive Design 
 - Project Showcase
 - Contact Form (EmailJS)
 - Download CV
